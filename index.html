@@ -1534,30 +1534,21 @@
           console.log('AudioContext resumed');
         }
 
-        // **CRITICAL FOR iOS**: Play a test beep to unlock audio
+        // **CRITICAL FOR iOS**: Play silent sound to unlock audio
         // iOS requires audio to start SYNCHRONOUSLY during user gesture
         try {
-          console.log('🔊 Playing unlock beep SYNCHRONOUSLY...');
-          console.log('AudioContext state:', audioCtx.state);
-
-          // Use OscillatorNode - must start IMMEDIATELY, not scheduled
-          const oscillator = audioCtx.createOscillator();
-          const gainNode = audioCtx.createGain();
-
-          oscillator.type = 'sine';
-          oscillator.frequency.value = 800; // 800Hz tone
-          gainNode.gain.value = 0.5; // Fixed volume
-
-          oscillator.connect(gainNode);
-          gainNode.connect(audioCtx.destination);
+          // Create a very short silent buffer
+          const silentSource = audioCtx.createBufferSource();
+          const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
+          silentSource.buffer = silentBuffer;
+          silentSource.connect(audioCtx.destination);
 
           // Start IMMEDIATELY (not scheduled) - this is critical for iOS
-          oscillator.start(0);
-          oscillator.stop(audioCtx.currentTime + 0.3);
+          silentSource.start(0);
 
-          console.log('🔓 BEEP PLAYING NOW!');
+          console.log('🔓 Audio unlocked (silent)');
         } catch (error) {
-          console.error('❌ Failed to play unlock beep:', error);
+          console.error('❌ Failed to unlock audio:', error);
         }
 
         const state = appStates[app];
@@ -1637,30 +1628,21 @@
           console.log('AudioContext resumed');
         }
 
-        // **CRITICAL FOR iOS**: Play a test beep to unlock audio
+        // **CRITICAL FOR iOS**: Play silent sound to unlock audio
         // iOS requires audio to start SYNCHRONOUSLY during user gesture
         try {
-          console.log('🔊 Playing unlock beep SYNCHRONOUSLY...');
-          console.log('AudioContext state:', audioCtx.state);
-
-          // Use OscillatorNode - must start IMMEDIATELY, not scheduled
-          const oscillator = audioCtx.createOscillator();
-          const gainNode = audioCtx.createGain();
-
-          oscillator.type = 'sine';
-          oscillator.frequency.value = 800; // 800Hz tone
-          gainNode.gain.value = 0.5; // Fixed volume
-
-          oscillator.connect(gainNode);
-          gainNode.connect(audioCtx.destination);
+          // Create a very short silent buffer
+          const silentSource = audioCtx.createBufferSource();
+          const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
+          silentSource.buffer = silentBuffer;
+          silentSource.connect(audioCtx.destination);
 
           // Start IMMEDIATELY (not scheduled) - this is critical for iOS
-          oscillator.start(0);
-          oscillator.stop(audioCtx.currentTime + 0.3);
+          silentSource.start(0);
 
-          console.log('🔓 BEEP PLAYING NOW!');
+          console.log('🔓 Audio unlocked (silent)');
         } catch (error) {
-          console.error('❌ Failed to play unlock beep:', error);
+          console.error('❌ Failed to unlock audio:', error);
         }
 
         const state = appStates[app];
