@@ -1533,6 +1533,15 @@
           await audioCtx.resume().catch(err => console.error('Resume failed:', err));
         }
 
+        // **CRITICAL FOR iOS**: Play a silent sound to unlock audio
+        // iOS requires audio to start during user gesture, then future scheduled sounds work
+        const silentSource = audioCtx.createBufferSource();
+        const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
+        silentSource.buffer = silentBuffer;
+        silentSource.connect(audioCtx.destination);
+        silentSource.start(0);
+        console.log('🔓 Audio unlocked for iOS');
+
         const state = appStates[app];
         state.wasHold = false;
 
@@ -1608,6 +1617,15 @@
         if (audioCtx.state === 'suspended') {
           await audioCtx.resume().catch(err => console.error('Resume failed:', err));
         }
+
+        // **CRITICAL FOR iOS**: Play a silent sound to unlock audio
+        // iOS requires audio to start during user gesture, then future scheduled sounds work
+        const silentSource = audioCtx.createBufferSource();
+        const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
+        silentSource.buffer = silentBuffer;
+        silentSource.connect(audioCtx.destination);
+        silentSource.start(0);
+        console.log('🔓 Audio unlocked for iOS');
 
         const state = appStates[app];
         state.wasHold = false;
