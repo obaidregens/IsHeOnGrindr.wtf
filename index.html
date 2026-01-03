@@ -1535,17 +1535,33 @@
 
         // **CRITICAL FOR iOS**: Play a test beep to unlock audio
         // iOS requires audio to start during user gesture, then future scheduled sounds work
-        const unlockSource = audioCtx.createBufferSource();
-        const unlockBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.1, audioCtx.sampleRate);
-        const data = unlockBuffer.getChannelData(0);
-        // Create a short 440Hz beep (A note) for 0.1 seconds
-        for (let i = 0; i < data.length; i++) {
-          data[i] = Math.sin(2 * Math.PI * 440 * i / audioCtx.sampleRate) * 0.3;
+        try {
+          console.log('Attempting to play unlock beep...');
+          console.log('AudioContext state:', audioCtx.state);
+          console.log('Sample rate:', audioCtx.sampleRate);
+
+          const unlockSource = audioCtx.createBufferSource();
+          const duration = 0.3; // 300ms beep
+          const unlockBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * duration, audioCtx.sampleRate);
+          const data = unlockBuffer.getChannelData(0);
+
+          // Create a louder 800Hz beep for 300ms
+          for (let i = 0; i < data.length; i++) {
+            data[i] = Math.sin(2 * Math.PI * 800 * i / audioCtx.sampleRate) * 0.8;
+          }
+
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.value = 1.0;
+
+          unlockSource.buffer = unlockBuffer;
+          unlockSource.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+          unlockSource.start(0);
+
+          console.log('🔓 Audio unlocked - BEEP playing now! (800Hz, 300ms, 80% volume)');
+        } catch (error) {
+          console.error('Failed to play unlock beep:', error);
         }
-        unlockSource.buffer = unlockBuffer;
-        unlockSource.connect(audioCtx.destination);
-        unlockSource.start(0);
-        console.log('🔓 Audio unlocked for iOS (test beep played)');
 
         const state = appStates[app];
         state.wasHold = false;
@@ -1625,17 +1641,33 @@
 
         // **CRITICAL FOR iOS**: Play a test beep to unlock audio
         // iOS requires audio to start during user gesture, then future scheduled sounds work
-        const unlockSource = audioCtx.createBufferSource();
-        const unlockBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.1, audioCtx.sampleRate);
-        const data = unlockBuffer.getChannelData(0);
-        // Create a short 440Hz beep (A note) for 0.1 seconds
-        for (let i = 0; i < data.length; i++) {
-          data[i] = Math.sin(2 * Math.PI * 440 * i / audioCtx.sampleRate) * 0.3;
+        try {
+          console.log('Attempting to play unlock beep...');
+          console.log('AudioContext state:', audioCtx.state);
+          console.log('Sample rate:', audioCtx.sampleRate);
+
+          const unlockSource = audioCtx.createBufferSource();
+          const duration = 0.3; // 300ms beep
+          const unlockBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * duration, audioCtx.sampleRate);
+          const data = unlockBuffer.getChannelData(0);
+
+          // Create a louder 800Hz beep for 300ms
+          for (let i = 0; i < data.length; i++) {
+            data[i] = Math.sin(2 * Math.PI * 800 * i / audioCtx.sampleRate) * 0.8;
+          }
+
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.value = 1.0;
+
+          unlockSource.buffer = unlockBuffer;
+          unlockSource.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+          unlockSource.start(0);
+
+          console.log('🔓 Audio unlocked - BEEP playing now! (800Hz, 300ms, 80% volume)');
+        } catch (error) {
+          console.error('Failed to play unlock beep:', error);
         }
-        unlockSource.buffer = unlockBuffer;
-        unlockSource.connect(audioCtx.destination);
-        unlockSource.start(0);
-        console.log('🔓 Audio unlocked for iOS (test beep played)');
 
         const state = appStates[app];
         state.wasHold = false;
