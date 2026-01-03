@@ -1533,14 +1533,19 @@
           await audioCtx.resume().catch(err => console.error('Resume failed:', err));
         }
 
-        // **CRITICAL FOR iOS**: Play a silent sound to unlock audio
+        // **CRITICAL FOR iOS**: Play a test beep to unlock audio
         // iOS requires audio to start during user gesture, then future scheduled sounds work
-        const silentSource = audioCtx.createBufferSource();
-        const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
-        silentSource.buffer = silentBuffer;
-        silentSource.connect(audioCtx.destination);
-        silentSource.start(0);
-        console.log('🔓 Audio unlocked for iOS');
+        const unlockSource = audioCtx.createBufferSource();
+        const unlockBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.1, audioCtx.sampleRate);
+        const data = unlockBuffer.getChannelData(0);
+        // Create a short 440Hz beep (A note) for 0.1 seconds
+        for (let i = 0; i < data.length; i++) {
+          data[i] = Math.sin(2 * Math.PI * 440 * i / audioCtx.sampleRate) * 0.3;
+        }
+        unlockSource.buffer = unlockBuffer;
+        unlockSource.connect(audioCtx.destination);
+        unlockSource.start(0);
+        console.log('🔓 Audio unlocked for iOS (test beep played)');
 
         const state = appStates[app];
         state.wasHold = false;
@@ -1618,14 +1623,19 @@
           await audioCtx.resume().catch(err => console.error('Resume failed:', err));
         }
 
-        // **CRITICAL FOR iOS**: Play a silent sound to unlock audio
+        // **CRITICAL FOR iOS**: Play a test beep to unlock audio
         // iOS requires audio to start during user gesture, then future scheduled sounds work
-        const silentSource = audioCtx.createBufferSource();
-        const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
-        silentSource.buffer = silentBuffer;
-        silentSource.connect(audioCtx.destination);
-        silentSource.start(0);
-        console.log('🔓 Audio unlocked for iOS');
+        const unlockSource = audioCtx.createBufferSource();
+        const unlockBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.1, audioCtx.sampleRate);
+        const data = unlockBuffer.getChannelData(0);
+        // Create a short 440Hz beep (A note) for 0.1 seconds
+        for (let i = 0; i < data.length; i++) {
+          data[i] = Math.sin(2 * Math.PI * 440 * i / audioCtx.sampleRate) * 0.3;
+        }
+        unlockSource.buffer = unlockBuffer;
+        unlockSource.connect(audioCtx.destination);
+        unlockSource.start(0);
+        console.log('🔓 Audio unlocked for iOS (test beep played)');
 
         const state = appStates[app];
         state.wasHold = false;
