@@ -44,7 +44,7 @@
 
       /* App colors - slightly muted */
       --whatsapp: #4EAD71;
-      --bumble: #E8B84A;
+      /* --bumble: #E8B84A; */
       --grindr: #D9B93E;
       --tinder: #E86A7C;
       --instagram: #C44E77;
@@ -441,7 +441,7 @@
     }
 
     .app-icon.whatsapp { background: var(--whatsapp); }
-    .app-icon.bumble { background: var(--bumble); color: #4a3f20; }
+    /* .app-icon.bumble { background: var(--bumble); color: #4a3f20; } */
     .app-icon.grindr { background: #f5c518; color: #231f20; }
     .app-icon.tinder { background: linear-gradient(145deg, #E86A7C, #D45A6A); }
     .app-icon.instagram { background: linear-gradient(145deg, #9B4E8C, #C44E77, #D87A5F); }
@@ -1023,12 +1023,12 @@
         <div class="timer-bar"></div>
       </button>
 
-      <button class="app-btn" data-app="bumble">
+      <!-- <button class="app-btn" data-app="bumble">
         <div class="app-icon bumble"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154 152"><path fill="#4a3f20" d="M103.141 26.2682H50.4932C43.6094 26.2682 38.0229 20.6925 38.0229 13.8104C38.0229 6.92821 43.6028 1.35255 50.4932 1.35255H103.141C110.025 1.35255 115.611 6.92821 115.611 13.8104C115.611 20.6925 110.031 26.2682 103.141 26.2682Z"/><path fill="#4a3f20" d="M141.29 67.7997H12.3445C5.5269 67.7997 0 62.224 0 55.3419C0 48.4597 5.5269 42.8841 12.3445 42.8841H141.29C148.108 42.8841 153.634 48.4597 153.634 55.3419C153.634 62.224 148.108 67.7997 141.29 67.7997Z"/><path fill="#4a3f20" d="M23.2364 109.323C16.4254 109.323 10.9051 103.747 10.9051 96.865C10.9051 89.9828 16.4254 84.4072 23.2364 84.4072H130.392C137.203 84.4072 142.723 89.9828 142.723 96.865C142.723 103.747 137.203 109.323 130.392 109.323H23.2364Z"/><path fill="#4a3f20" d="M97.2867 150.847H56.3678C49.484 150.847 43.8976 145.272 43.8976 138.389C43.8976 131.507 49.4774 125.932 56.3678 125.932H97.2867C104.171 125.932 109.757 131.507 109.757 138.389C109.757 145.272 104.177 150.847 97.2867 150.847Z"/></svg></div>
         <span class="app-name">Bumble</span>
         <div class="notification-badge">0</div>
         <div class="timer-bar"></div>
-      </button>
+      </button> -->
 
       <button class="app-btn" data-app="snapchat">
         <div class="app-icon snapchat"><i class="fab fa-snapchat"></i></div>
@@ -1109,9 +1109,9 @@
       audio.load();
     });
 
-    // Fallback synthesized sounds for apps without audio files (bumble)
+    // Fallback synthesized sounds for apps without audio files
     const fallbackSounds = {
-      bumble: { freq: [600, 800, 600], duration: 0.12, type: 'sine', pattern: [0, 0.15, 0.3] },
+      // bumble: { freq: [600, 800, 600], duration: 0.12, type: 'sine', pattern: [0, 0.15, 0.3] },
       facebook: { freq: [523, 659, 784], duration: 0.15, type: 'sine', pattern: [0, 0.18, 0.36] }
     };
 
