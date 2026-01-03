@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IsHeOnGrindr.wtf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Architects+Daughter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+
+  <!-- favicon -->
+<!-- Primary favicon (modern browsers) -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- Fallback for older browsers (optional but recommended) -->
+<link rel="alternate icon" href="/favicon.ico">
+
+<!-- Apple Touch Icons (Apple does NOT support SVG, but iOS will still fetch it) -->
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+<!-- Pinned tab (Safari) -->
+<link rel="mask-icon" href="/favicon.svg" color="#000000">
+
+<!-- Web App Manifest (optional but recommended) -->
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Theme color -->
+<meta name="theme-color" content="#ffffff">
+  <style>
+    :root {
+      /* Paper backgrounds */
+      --bg-paper: #FFFEF9;
+      --bg-cream: #FFF8E7;
+      --bg-manila: #FFEFD5;
+      --bg-card: #FFFFF0;
+
+      /* Organic colors - marker/colored pencil feel */
+      --terracotta: #C4755A;
+      --sage: #87A878;
+      --mustard: #D4A84B;
+      --navy: #3D5A80;
+      --coral: #E07A5F;
+      --mint: #81B29A;
+      --burnt-sienna: #BC6C4F;
+
+      /* App colors - slightly muted */
+      --whatsapp: #4EAD71;
+      --bumble: #E8B84A;
+      --grindr: #D9B93E;
+      --tinder: #E86A7C;
+      --instagram: #C44E77;
+      --snapchat: #E8DC5A;
+      --facebook: #5B7CB8;
+
+      /* Sketch colors */
+      --pencil: #6B6B6B;
+      --pencil-light: #8B8B8B;
+      --ink: #2D3436;
+      --text: #3D3D3D;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Kalam', cursive;
+      background: var(--bg-paper);
+      min-height: 100vh;
+      padding: 24px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Paper texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Notebook ruled lines */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          rgba(180, 210, 230, 0.3) 31px,
+          rgba(180, 210, 230, 0.3) 32px
+        );
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* SVG filter for rough/sketchy edges */
+    .svg-filters {
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      margin-left: 28px;
+      padding: 24px 42px 14px 40px;
+      background: #FFFFF0;
+      position: relative;
+      transform: rotate(-0.8deg);
+      border-radius: 2px 4px 2px 3px;
+      box-shadow:
+        2px 3px 0 rgba(0,0,0,0.1),
+        4px 6px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Torn top edge */
+    header::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M0 8 L3 4 L5 9 L8 3 L11 7 L14 5 L17 10 L20 4 L24 8 L27 6 L30 9 L34 5 L37 8 L41 4 L44 7 L48 6 L51 9 L55 5 L58 8 L62 4 L66 7 L69 6 L73 9 L77 5 L80 8 L84 6 L88 9 L91 4 L95 7 L99 6 L103 9 L106 5 L110 8 L114 6 L117 9 L121 5 L125 8 L128 6 L132 9 L136 5 L140 8 L143 6 L147 9 L151 5 L155 8 L158 6 L162 9 L166 5 L170 8 L174 6 L177 9 L181 5 L185 8 L188 6 L192 9 L196 5 L200 8 L200 12 L0 12 Z' fill='%23FFFFF0' stroke='%23C9C9B8' stroke-width='0.5'/%3E%3C/svg%3E") repeat-x;
+      background-size: 200px 12px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Notebook margin line on left */
+    header::after {
+      content: '';
+      position: absolute;
+      left: 38px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #E07A5F 2%,
+        #E07A5F 98%,
+        transparent 100%
+      );
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+
+    h1 {
+      margin-bottom: 12px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 80px;
+      display: block;
+    }
+
+    /* Scribbled highlight behind logo */
+    h1::before {
+      content: '';
+      position: absolute;
+      inset: -4px -8px -2px -8px;
+      background: linear-gradient(
+        92deg,
+        transparent 0%,
+        rgba(255, 245, 200, 0.4) 10%,
+        rgba(255, 240, 180, 0.5) 30%,
+        rgba(200, 230, 210, 0.3) 60%,
+        rgba(255, 220, 220, 0.4) 85%,
+        transparent 100%
+      );
+      transform: rotate(-0.5deg);
+      z-index: -1;
+      border-radius: 18px 12px 16px 14px;
+    }
+
+    .subtitle {
+      font-family: 'Kalam', cursive;
+      font-size: 16px;
+      color: var(--pencil);
+      font-style: italic;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    /* Small doodle star next to subtitle */
+    .subtitle:first-of-type::before {
+      content: '★';
+      position: absolute;
+      left: -20px;
+      opacity: 0.3;
+      font-size: 12px;
+      color: var(--mustard);
+    }
+
+    /* Notebook-style check mark */
+    .subtitle:last-of-type::before {
+      content: '✓';
+      position: absolute;
+      left: -18px;
+      opacity: 0.25;
+      font-size: 14px;
+      color: var(--sage);
+    }
+
+    /* Slight wobble on hover */
+    header:hover {
+      transform: rotate(-0.5deg);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Date/label in corner like a notebook */
+    .notebook-label {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-family: 'Kalam', cursive;
+      font-size: 12px;
+      color: var(--pencil-light);
+      opacity: 0.5;
+      transform: rotate(2deg);
+    }
+
+    .instructions {
+      background: #FFF59D;
+      padding: 22px 26px;
+      margin-bottom: 32px;
+      font-family: 'Architects Daughter', cursive;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #4a4a4a;
+      transform: rotate(-1.2deg);
+      position: relative;
+      border-radius: 2px;
+      box-shadow:
+        0 1px 1px rgba(0,0,0,0.08),
+        0 2px 2px rgba(0,0,0,0.08),
+        0 4px 4px rgba(0,0,0,0.08),
+        0 8px 8px rgba(0,0,0,0.08),
+        0 16px 16px rgba(0,0,0,0.05);
+    }
+
+    /* Folded corner */
+    .instructions::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 28px 28px 0;
+      border-color: transparent #f0e68c transparent transparent;
+      filter: drop-shadow(-1px 1px 1px rgba(0,0,0,0.1));
+    }
+
+    /* Paper clip - sketchy hand-drawn style */
+    .paperclip {
+      position: absolute;
+      top: -12px;
+      left: 24px;
+      transform: rotate(12deg);
+      width: 32px;
+      height: 50px;
+      z-index: 10;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
+    }
+
+    .instructions div {
+      margin-bottom: 4px;
+    }
+
+    .instructions span {
+      color: var(--coral);
+      font-weight: 700;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    .app-btn {
+      position: relative;
+      background: var(--bg-card);
+      border: none;
+      padding: 22px 14px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      border-radius: 2px 3px 2px 4px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow:
+        3px 4px 0 rgba(107, 107, 107, 0.18),
+        5px 7px 15px rgba(0,0,0,0.08);
+    }
+
+    /* Sticky note colors - each button gets a different paper color */
+    .app-btn:nth-child(1) { background: #FFF9C4; } /* Light yellow */
+    .app-btn:nth-child(2) { background: #FFCCBC; } /* Peach */
+    .app-btn:nth-child(3) { background: #F0E68C; } /* Khaki */
+    .app-btn:nth-child(4) { background: #E1BEE7; } /* Lavender */
+    .app-btn:nth-child(5) { background: #FFE0B2; } /* Light orange */
+    .app-btn:nth-child(6) { background: #C5E1A5; } /* Light green */
+    .app-btn:nth-child(7) { background: #FFECB3; } /* Amber */
+
+    /* Each card slightly rotated */
+    .app-btn:nth-child(1) { transform: rotate(-2.2deg); }
+    .app-btn:nth-child(2) { transform: rotate(1.5deg); }
+    .app-btn:nth-child(3) { transform: rotate(-0.8deg); }
+    .app-btn:nth-child(4) { transform: rotate(2.4deg); }
+    .app-btn:nth-child(5) { transform: rotate(-1.6deg); }
+    .app-btn:nth-child(6) { transform: rotate(1.2deg); }
+    .app-btn:nth-child(7) { transform: rotate(-1.8deg); }
+
+    /* Hand-drawn wobbly border using SVG path effect */
+    .app-btn::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: transparent;
+      border: 3px dashed var(--pencil);
+      border-radius: 3px 6px 4px 5px;
+      opacity: 0.35;
+      pointer-events: none;
+      transition: opacity 0.2s ease, border-style 0.2s ease;
+    }
+
+    /* Corner crease/fold effect */
+    .app-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 18px 18px;
+      border-color: transparent transparent rgba(0,0,0,0.08) transparent;
+      border-radius: 0 0 2px 0;
+    }
+
+    .app-btn:hover {
+      transform: rotate(0deg) scale(1.08) translateY(-6px);
+      box-shadow:
+        4px 6px 0 rgba(107, 107, 107, 0.25),
+        8px 12px 24px rgba(0,0,0,0.12);
+    }
+
+    .app-btn:hover::before {
+      opacity: 0.6;
+      border-style: solid;
+    }
+
+    .app-btn:active {
+      transform: rotate(0deg) scale(0.96);
+      box-shadow:
+        2px 3px 0 rgba(107, 107, 107, 0.18),
+        3px 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .app-btn.loading {
+      animation: wobble 0.6s ease-in-out infinite;
+    }
+
+    @keyframes wobble {
+      0%, 100% { transform: rotate(-2deg) scale(1.02); }
+      50% { transform: rotate(2deg) scale(1.02); }
+    }
+
+    .app-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px 18px 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: white;
+      position: relative;
+      box-shadow:
+        inset 0 -3px 0 rgba(0,0,0,0.15),
+        2px 3px 6px rgba(0,0,0,0.12);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Sketchy icon border */
+    .app-icon::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border: 2px solid rgba(0,0,0,0.25);
+      border-radius: 16px 20px 18px 22px;
+      pointer-events: none;
+    }
+
+    .app-btn:hover .app-icon {
+      transform: rotate(-5deg) scale(1.08);
+    }
+
+    .app-icon i {
+      font-size: 28px;
+      filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.2));
+    }
+
+    .app-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .app-icon.whatsapp { background: var(--whatsapp); }
+    .app-icon.bumble { background: var(--bumble); color: #4a3f20; }
+    .app-icon.grindr { background: #f5c518; color: #231f20; }
+    .app-icon.tinder { background: linear-gradient(145deg, #E86A7C, #D45A6A); }
+    .app-icon.instagram { background: linear-gradient(145deg, #9B4E8C, #C44E77, #D87A5F); }
+    .app-icon.snapchat { background: var(--snapchat); color: #4a3f20; }
+    .app-icon.facebook { background: var(--facebook); }
+    .app-icon.bereal { background: #1a1a1a; }
+
+    .app-name {
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.5px;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: var(--coral);
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      opacity: 0;
+      transform: scale(0) rotate(-10deg);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow:
+        1px 2px 4px rgba(0,0,0,0.2),
+        inset 0 -2px 0 rgba(0,0,0,0.15);
+    }
+
+    /* Sketchy badge border */
+    .notification-badge::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-radius: 50%;
+    }
+
+    .notification-badge.visible {
+      opacity: 1;
+      transform: scale(1) rotate(5deg);
+    }
+
+    .timer-bar {
+      position: absolute;
+      bottom: 4px;
+      left: 8px;
+      height: 4px;
+      background: var(--mint);
+      width: calc(100% - 16px);
+      border-radius: 2px;
+      opacity: 0.8;
+      transform: scaleX(0);
+      transform-origin: left center;
+      will-change: transform;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 36px;
+      padding: 20px;
+      font-family: 'Architects Daughter', cursive;
+      font-size: 22px;
+      color: var(--ink);
+      min-height: 70px;
+      position: relative;
+    }
+
+    .status.playing {
+      color: var(--sage);
+      animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1) rotate(-1deg); }
+      100% { transform: scale(1); }
+    }
+
+    /* Timeline visualization */
+    .timeline-container {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px 20px;
+      background: var(--bg-cream);
+      border-radius: 4px 6px 5px 7px;
+      box-shadow:
+        inset 0 2px 4px rgba(0,0,0,0.05),
+        2px 3px 0 rgba(107, 107, 107, 0.12);
+      transform: rotate(-0.3deg);
+      position: relative;
+    }
+
+    .timeline-container.visible {
+      display: flex;
+    }
+
+    /* Tape effect on corner */
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 60px;
+      height: 18px;
+      background: rgba(255, 248, 220, 0.85);
+      border: 1px dashed rgba(180, 160, 100, 0.4);
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+
+    .timeline-label {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      color: var(--pencil);
+      text-align: left;
+      margin-bottom: 4px;
+    }
+
+    .timeline-track {
+      position: relative;
+      height: 36px;
+      background: var(--bg-paper);
+      border-radius: 3px 4px 3px 5px;
+      overflow: visible;
+      border: 2px dashed var(--pencil-light);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    /* Wobbly hand-drawn track line */
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      right: 8px;
+      height: 3px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3 Q 8 1, 16 3 T 32 3 T 48 3 T 64 3 T 80 3 T 96 3 T 112 3 T 128 3 T 144 3 T 160 3 T 176 3 T 192 3 T 200 3' stroke='%238B8B8B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+      background-size: 100% 100%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+    }
+
+    /* Progress fill - pencil shading style */
+    .timeline-progress {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      bottom: 4px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(129, 178, 154, 0.3) 0%,
+        rgba(129, 178, 154, 0.5) 100%
+      );
+      border-radius: 2px 3px 2px 4px;
+      transform: scaleX(0);
+      transform-origin: left center;
+      will-change: transform;
+    }
+
+    /* Cross-hatching overlay for pencil texture */
+    .timeline-progress::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 8 L8 0 M-1 1 L1 -1 M7 9 L9 7' stroke='%2381B29A' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+      border-radius: inherit;
+    }
+
+    /* Playhead marker - pencil point style */
+    .timeline-playhead {
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      width: 4px;
+      left: 0;
+      background: var(--sage);
+      border-radius: 2px;
+      box-shadow:
+        1px 1px 2px rgba(0,0,0,0.2),
+        -1px 0 0 rgba(255,255,255,0.5);
+      will-change: transform;
+      z-index: 10;
+    }
+
+    .timeline-playhead::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--sage);
+    }
+
+    /* Notification markers on timeline */
+    .timeline-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: var(--coral);
+      border-radius: 50% 45% 55% 48%;
+      border: 2px solid rgba(0,0,0,0.15);
+      box-shadow:
+        1px 2px 3px rgba(0,0,0,0.15),
+        inset 0 -2px 0 rgba(0,0,0,0.1);
+      z-index: 5;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+
+    .timeline-marker.played {
+      opacity: 0.4;
+      transform: translate(-50%, -50%) scale(0.8);
+      animation: marker-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes marker-pop {
+      0% { transform: translate(-50%, -50%) scale(1.4); }
+      100% { transform: translate(-50%, -50%) scale(0.8); }
+    }
+
+    .timeline-marker::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      width: 4px;
+      height: 4px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+    }
+
+    /* Each marker slightly different rotation for hand-drawn feel */
+    .timeline-marker:nth-child(odd) {
+      border-radius: 45% 50% 48% 55%;
+    }
+
+    .timeline-marker:nth-child(3n) {
+      border-radius: 48% 52% 50% 46%;
+    }
+
+    /* Time labels */
+    .timeline-times {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Kalam', cursive;
+      font-size: 12px;
+      color: var(--pencil-light);
+      padding: 0 4px;
+      margin-top: 2px;
+    }
+
+    .timeline-times span {
+      opacity: 0.7;
+    }
+
+    /* Wait zone indicator (first 3 seconds) */
+    .timeline-wait-zone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(212, 168, 75, 0.08),
+        rgba(212, 168, 75, 0.08) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      border-right: 2px dashed var(--mustard);
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    .timeline-start-label {
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      font-family: 'Caveat', cursive;
+      font-size: 11px;
+      color: var(--pencil);
+      opacity: 0.7;
+      transform: rotate(-2deg);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    /* Status text when timeline is hidden */
+    .status-text {
+      display: block;
+    }
+
+    .status.has-timeline .status-text {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      color: var(--pencil-light);
+      position: relative;
+    }
+
+    /* Doodle decorations */
+    .doodle {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    .doodle-star {
+      width: 30px;
+      height: 30px;
+    }
+
+    .doodle-spiral {
+      width: 40px;
+      height: 40px;
+    }
+
+    .doodle-heart {
+      width: 25px;
+      height: 25px;
+    }
+
+    /* Margin doodles */
+    .margin-doodle {
+      position: fixed;
+      left: 20px;
+      font-family: 'Caveat', cursive;
+      color: var(--pencil-light);
+      opacity: 0.4;
+      transform: rotate(-90deg);
+      transform-origin: left center;
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .apps-grid {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 14px;
+      }
+
+      .app-btn {
+        padding: 16px 10px;
+      }
+
+      .app-btn:nth-child(1) { transform: rotate(-1.5deg); }
+      .app-btn:nth-child(2) { transform: rotate(1.2deg); }
+      .app-btn:nth-child(3) { transform: rotate(-0.6deg); }
+      .app-btn:nth-child(4) { transform: rotate(1.8deg); }
+      .app-btn:nth-child(5) { transform: rotate(-1.2deg); }
+      .app-btn:nth-child(6) { transform: rotate(0.9deg); }
+      .app-btn:nth-child(7) { transform: rotate(-1.4deg); }
+
+      .app-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px 14px 13px 15px;
+      }
+
+      .app-icon i {
+        font-size: 22px;
+      }
+
+      .app-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .app-name {
+        font-size: 16px;
+      }
+
+      .notification-badge {
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+        top: -4px;
+        right: -4px;
+      }
+
+      header {
+        padding: 22px 32px 26px 44px;
+        margin-bottom: 28px;
+        margin-left: 18px;
+      }
+
+      h1 {
+        font-size: clamp(30px, 8vw, 42px);
+      }
+
+      /* Adjust notebook margin line */
+      header::after {
+        left: 30px;
+      }
+
+      .notebook-label {
+        font-size: 11px;
+        top: 12px;
+        right: 14px;
+      }
+
+      .instructions {
+        font-size: 13px;
+        padding: 18px 20px;
+        margin-bottom: 20px;
+        line-height: 1.8;
+      }
+
+      .instructions::before {
+        border-width: 0 22px 22px 0;
+      }
+
+      .paperclip {
+        width: 26px;
+        height: 42px;
+        top: -10px;
+        left: 18px;
+      }
+
+      .status {
+        font-size: 18px;
+        margin-top: 24px;
+      }
+
+      .margin-doodle {
+        display: none;
+      }
+
+      .timeline-container {
+        padding: 12px 14px;
+      }
+
+      .timeline-label {
+        font-size: 14px;
+      }
+
+      .timeline-track {
+        height: 30px;
+      }
+
+      .timeline-marker {
+        width: 12px;
+        height: 12px;
+      }
+
+      .timeline-start-label {
+        font-size: 10px;
+      }
+
+      .timeline-times {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Doodle Decorations -->
+  <svg class="doodle doodle-star" style="top: 12%; left: 8%;" viewBox="0 0 50 50">
+    <path d="M25 2 L28 20 L46 20 L32 30 L38 48 L25 38 L12 48 L18 30 L4 20 L22 20 Z"
+          fill="none" stroke="#D4A84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <svg class="doodle doodle-spiral" style="top: 35%; right: 5%;" viewBox="0 0 50 50">
+    <path d="M25 25 Q 30 20, 28 15 Q 25 10, 20 12 Q 12 15, 15 25 Q 18 35, 28 33 Q 40 30, 38 20 Q 35 8, 22 8"
+          fill="none" stroke="#87A878" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <svg class="doodle doodle-heart" style="bottom: 20%; left: 6%;" viewBox="0 0 50 50">
+    <path d="M25 42 Q 10 30, 10 20 Q 10 10, 18 10 Q 25 10, 25 18 Q 25 10, 32 10 Q 40 10, 40 20 Q 40 30, 25 42"
+          fill="none" stroke="#E07A5F" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <svg class="doodle" style="top: 60%; right: 8%; width: 35px; height: 35px;" viewBox="0 0 50 50">
+    <circle cx="25" cy="25" r="18" fill="none" stroke="#81B29A" stroke-width="2" stroke-dasharray="4 3"/>
+  </svg>
+
+  <div class="margin-doodle" style="top: 30%;">is he tho?</div>
+  <div class="margin-doodle" style="top: 60%;">* sus *</div>
+
+  <div class="container">
+    <header>
+      <!-- Notebook label/date in corner -->
+      <div class="notebook-label">trust issues?</div>
+
+      <h1><img src="logo.png" alt="IsHeOnGrindr.wtf" class="logo-img"></h1>
+
+      <p class="subtitle">prank your friends</p>
+      <p class="subtitle" style="font-size: 13px; margin-top: -2px; opacity: 0.7;">(or test your bf)</p>
+
+      <!-- Small corner doodles -->
+      <svg style="position: absolute; bottom: 12px; right: 16px; width: 28px; height: 28px; opacity: 0.2;" viewBox="0 0 50 50">
+        <path d="M15 25 L25 15 M25 15 L35 25 M25 15 L25 35" stroke="#6B6B6B" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+
+      <svg style="position: absolute; top: 14px; left: 52px; width: 20px; height: 20px; opacity: 0.15;" viewBox="0 0 50 50">
+        <circle cx="25" cy="25" r="15" fill="none" stroke="#E07A5F" stroke-width="2"/>
+        <path d="M25 10 L25 25 L35 25" stroke="#E07A5F" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </header>
+
+    <div class="instructions">
+      <!-- Hand-drawn sketchy paper clip -->
+      <svg class="paperclip" viewBox="0 0 24 48" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer loop - slightly wobbly -->
+        <path d="M7 4
+                 C 4 4, 2 7, 2.5 10
+                 L 3 38
+                 C 3.5 43, 8 45, 12 44.5
+                 C 16 44, 20 42, 20.5 38
+                 L 21 14
+                 C 21.5 10, 19 7, 15 7"
+              fill="none"
+              stroke="#8B8B8B"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+        <!-- Inner loop - offset for depth -->
+        <path d="M15 7
+                 C 12 6.5, 8 8, 7.5 12
+                 L 7 32
+                 C 6.5 36, 9 38, 12 37.5
+                 C 15 37, 17 35, 17 32
+                 L 17.5 18"
+              fill="none"
+              stroke="#8B8B8B"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+        <!-- Highlight line for metallic feel -->
+        <path d="M5 12 L 5.5 36"
+              fill="none"
+              stroke="rgba(255,255,255,0.4)"
+              stroke-width="1"
+              stroke-linecap="round"/>
+      </svg>
+      <div>~ <span>tap</span> an app to queue a notification (will play after 3 sec)</div>
+      <div>~ <span>tap again</span> while loading to add more</div>
+      <div>~ <span>hold</span> to cancel queued notifications</div>
+      <div>~ after <span>5 taps</span>, it cancels automatically</div>
+    </div>
+
+    <div class="apps-grid">
+      <button class="app-btn" data-app="grindr">
+        <div class="app-icon grindr"><svg style="width: 80px; height: 80px;" viewBox="-30.31882822 -28.68736083 92.20420359 90.93121477" xmlns="http://www.w3.org/2000/svg"><path d="m31.1 2.02a22.2 22.2 0 0 0 -2-1.74 1.1 1.1 0 0 0 -.84-.2 83.58 83.58 0 0 1 -12.5 1.1 83.5 83.5 0 0 1 -12.52-1.15 1.08 1.08 0 0 0 -.85.2 22.23 22.23 0 0 0 -2.03 1.8 1.06 1.06 0 0 0 -.36.67v2.44s0 1.72.06 2.72a66.27 66.27 0 0 0 3.94 20 1.07 1.07 0 0 0 .3.44c3.18 2.77 8.12 5.06 11.46 5.06s8.24-2.28 11.44-5.06a1.07 1.07 0 0 0 .3-.44 66.27 66.27 0 0 0 3.92-20c0-1 .06-1.88.06-2.7v-2.45a1.06 1.06 0 0 0 -.37-.68zm-17.7 18.84-.06.1c-1.25 2.22-3.27 2.5-5.54 1.6s-4.18-2.76-3.4-5.36c.76-2.34 4.4-1.4 6.1-1 2.38.6 4.2 2 2.92 4.54.05-.06.07-.08-.04.12zm13.72-1.62c-.58 2.37-2.95 3.6-5.3 3.86-2.14.22-4.04-1.86-4.12-4v-.1-.06c.07-2.53 3.8-3 5.68-3.17 2.48-.24 4.43.6 3.74 3.47z" fill="#231f20"/></svg></div>
+        <span class="app-name">Grindr</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+
+      <button class="app-btn" data-app="tinder">
+        <div class="app-icon tinder"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style="width: 36px; height: 36px;"><path fill="#fff" d="M18.2,20.321c7.65-2.429,8.864-9.471,7.893-15.786c0,0,0-0.364,0.243-0.243C33.743,7.936,42,15.586,42,27.364C42,36.107,35.079,44,25,44C14.071,44,8,36.35,8,27.243c0-5.464,3.643-10.929,7.893-13.357c0,0,0.364,0,0.364,0.243c0,1.214,0.486,4.25,1.821,6.071L18.2,20.321z"/></svg></div>
+        <span class="app-name">Tinder</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+
+      <button class="app-btn" data-app="bumble">
+        <div class="app-icon bumble"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154 152"><path fill="#4a3f20" d="M103.141 26.2682H50.4932C43.6094 26.2682 38.0229 20.6925 38.0229 13.8104C38.0229 6.92821 43.6028 1.35255 50.4932 1.35255H103.141C110.025 1.35255 115.611 6.92821 115.611 13.8104C115.611 20.6925 110.031 26.2682 103.141 26.2682Z"/><path fill="#4a3f20" d="M141.29 67.7997H12.3445C5.5269 67.7997 0 62.224 0 55.3419C0 48.4597 5.5269 42.8841 12.3445 42.8841H141.29C148.108 42.8841 153.634 48.4597 153.634 55.3419C153.634 62.224 148.108 67.7997 141.29 67.7997Z"/><path fill="#4a3f20" d="M23.2364 109.323C16.4254 109.323 10.9051 103.747 10.9051 96.865C10.9051 89.9828 16.4254 84.4072 23.2364 84.4072H130.392C137.203 84.4072 142.723 89.9828 142.723 96.865C142.723 103.747 137.203 109.323 130.392 109.323H23.2364Z"/><path fill="#4a3f20" d="M97.2867 150.847H56.3678C49.484 150.847 43.8976 145.272 43.8976 138.389C43.8976 131.507 49.4774 125.932 56.3678 125.932H97.2867C104.171 125.932 109.757 131.507 109.757 138.389C109.757 145.272 104.177 150.847 97.2867 150.847Z"/></svg></div>
+        <span class="app-name">Bumble</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+
+      <button class="app-btn" data-app="snapchat">
+        <div class="app-icon snapchat"><i class="fab fa-snapchat"></i></div>
+        <span class="app-name">Snapchat</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+
+      <button class="app-btn" data-app="instagram">
+        <div class="app-icon instagram"><i class="fab fa-instagram"></i></div>
+        <span class="app-name">Instagram</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+
+      <!-- <button class="app-btn" data-app="facebook">
+        <div class="app-icon facebook"><i class="fab fa-facebook-f"></i></div>
+        <span class="app-name">Facebook</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button> -->
+
+      <button class="app-btn" data-app="bereal">
+        <div class="app-icon bereal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 115.198" style="width: 36px; height: auto;"><path fill="#fff" d="M138.688 30.432c12.653 0 21.947 4.183 27.888 12.55 5.935 8.364 8.906 18.258 8.906 29.665v6.65H121.04c.999 5.319 3.437 9.559 7.324 12.716 3.885 3.159 8.991 4.736 15.319 4.736 3.662 0 6.964-.469 9.906-1.412 2.938-.939 6.351-2.298 10.239-4.071l6.328 15.623c-3.776 2.881-8.355 4.986-13.737 6.313-5.385 1.331-9.797 1.996-13.237 1.996-13.986 0-25.004-3.824-33.049-11.468-8.048-7.644-12.071-17.895-12.071-30.749 0-12.852 3.636-23.156 10.905-30.916 7.269-7.755 17.176-11.633 29.721-11.633zm188.474 0c12.653 0 21.949 4.183 27.887 12.55 5.939 8.364 8.907 18.258 8.907 29.665v6.65h-54.442c.998 5.319 3.437 9.559 7.326 12.716 3.882 3.159 8.989 4.736 15.317 4.736 3.662 0 6.964-.469 9.905-1.412 2.939-.939 6.355-2.298 10.242-4.071l6.323 15.623c-3.774 2.881-8.353 4.986-13.732 6.313-5.387 1.331-9.799 1.996-13.239 1.996-13.984 0-25.002-3.824-33.049-11.468-8.048-7.644-12.071-17.895-12.071-30.749 0-12.852 3.634-23.156 10.905-30.916 7.271-7.755 17.174-11.633 29.721-11.633zm82.676.89c20.763 0 34.186 10.704 34.186 26.87v55.01h-21.891v-11.973h-.45c-4.577 8.232-13.12 13.246-23.693 13.246-16.12 0-26.988-10.104-26.988-24.249v-.148c0-14.596 11.318-23.13 31.262-24.402l19.869-1.195v-4.94c0-7.111-4.649-11.528-13.198-11.528-8.171 0-13.12 3.819-14.168 8.981l-.152.675h-20.016l.075-.897c1.2-14.821 13.945-25.45 35.164-25.45zM512 91.043v22.162h-22.198V91.043H512zM42.29.182c10.989 0 19.922 2.409 26.806 7.23 6.88 4.82 10.322 12.938 10.322 24.348 0 4.214-.973 8.009-2.915 11.386-1.942 3.382-4.468 6.289-7.574 8.725 5.104 2.661 9.296 6.263 12.569 10.806 3.273 4.544 4.912 10.304 4.912 17.285 0 10.418-3.637 18.56-10.904 24.433-7.274 5.873-16.959 8.807-29.053 8.807H0V.182h42.29zm185.639 0c12.321 0 22.863 2.825 31.632 8.475 8.77 5.653 13.156 14.405 13.156 26.262 0 6.982-1.807 12.993-5.411 18.034-3.609 5.04-8.241 8.95-13.904 11.717l27.808 48.532h-22.977l-23.977-43.213a79.273 79.273 0 01-3.829.249 91.877 91.877 0 01-3.996.085h-12.488v42.879h-21.478V.182h35.464zM478.888 0v113.205h-22.946V0h22.946zm-56.755 78.104l-16.57 1.045c-8.473.525-12.895 4.117-12.895 9.807v.149c0 5.912 4.872 9.429 12.443 9.429 9.823 0 17.022-6.286 17.022-14.668v-5.762zM46.286 63.673H21.478v31.746h23.308c5.772 0 10.406-1.328 13.904-3.989 3.495-2.658 5.244-6.425 5.244-11.304 0-5.316-1.611-9.39-4.828-12.215-3.222-2.823-7.494-4.238-12.82-4.238zm91.901-14.794c-4.441 0-8.156 1.36-11.153 4.074-2.997 2.716-4.942 6.678-5.827 11.884h33.797c-1.111-5.426-3.109-9.446-5.994-12.049-2.889-2.605-6.493-3.909-10.823-3.909zm188.474 0c-4.441 0-8.159 1.36-11.154 4.074-2.997 2.716-4.941 6.678-5.829 11.884h33.799c-1.11-5.426-3.108-9.446-5.991-12.049-2.891-2.605-6.498-3.909-10.825-3.909zm-99.397-30.747h-13.321v34.571h13.654c6.435 0 11.763-1.298 15.982-3.906 4.219-2.601 6.328-6.896 6.328-12.881 0-6.316-1.998-10.859-5.994-13.628-3.996-2.77-9.548-4.156-16.649-4.156zm-188.138 0H21.478v28.089h15.984c5.994 0 10.682-1.135 14.068-3.406 3.384-2.272 5.077-5.844 5.077-10.721 0-5.316-1.555-8.974-4.661-10.969-3.11-1.996-7.382-2.993-12.82-2.993z"/></svg></div>
+        <span class="app-name">BeReal</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+
+      <button class="app-btn" data-app="whatsapp">
+        <div class="app-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+        <span class="app-name">WhatsApp</span>
+        <div class="notification-badge">0</div>
+        <div class="timer-bar"></div>
+      </button>
+    </div>
+
+    <div class="status" id="status">
+      <span class="status-text">tap an app to queue a notification ~</span>
+      <div class="timeline-container" id="timeline">
+        <div class="timeline-label" id="timeline-label">Grindr: 2 notifications queued</div>
+        <div class="timeline-track" id="timeline-track">
+          <div class="timeline-wait-zone" id="timeline-wait-zone"></div>
+          <div class="timeline-start-label">start</div>
+          <div class="timeline-progress" id="timeline-progress"></div>
+          <div class="timeline-playhead" id="timeline-playhead"></div>
+          <!-- Markers will be added dynamically -->
+        </div>
+        <div class="timeline-times">
+          <span>0s</span>
+          <span id="timeline-duration">5s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    made with love and lies by <a href="https://obaid.wtf" target="_blank" rel="noopener" style="color: var(--coral); text-decoration: none; border-bottom: 2px dashed var(--coral); transition: border-style 0.2s ease;">obaid.wtf</a>
+  </footer>
+
+  <script>
+    // Audio context for generating fallback sounds
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Preload actual audio files
+    const audioFiles = {
+      whatsapp: new Audio('audio/whatsapp.mp3'),
+      grindr: new Audio('audio/grindr.mp3'),
+      tinder: new Audio('audio/tindermessage.mp3'),
+      instagram: new Audio('audio/instagram.mp3'),
+      snapchat: new Audio('audio/snapchat.mp3'),
+      bereal: new Audio('audio/bereal.mp3')
+    };
+
+    // Preload all audio files
+    Object.values(audioFiles).forEach(audio => {
+      audio.preload = 'auto';
+      audio.load();
+    });
+
+    // Fallback synthesized sounds for apps without audio files (bumble)
+    const fallbackSounds = {
+      bumble: { freq: [600, 800, 600], duration: 0.12, type: 'sine', pattern: [0, 0.15, 0.3] },
+      facebook: { freq: [523, 659, 784], duration: 0.15, type: 'sine', pattern: [0, 0.18, 0.36] }
+    };
+
+    // Timeline elements
+    const timelineEl = document.getElementById('timeline');
+    const timelineLabelEl = document.getElementById('timeline-label');
+    const timelineTrackEl = document.getElementById('timeline-track');
+    const timelineProgressEl = document.getElementById('timeline-progress');
+    const timelinePlayheadEl = document.getElementById('timeline-playhead');
+    const timelineDurationEl = document.getElementById('timeline-duration');
+    const timelineWaitZoneEl = document.getElementById('timeline-wait-zone');
+    const statusTextEl = document.querySelector('.status-text');
+
+    // Global timeline state
+    let timelineState = {
+      active: false,
+      app: null,
+      scheduledTimes: [], // Array of times (in seconds) when each notification plays
+      totalDuration: 0,
+      startTime: null,
+      animationFrame: null,
+      markers: []
+    };
+
+    function playSingleSound(app, delay = 0) {
+      // Use actual audio file if available
+      if (audioFiles[app]) {
+        setTimeout(() => {
+          const audio = audioFiles[app].cloneNode();
+          audio.play().catch(() => {});
+        }, delay * 1000);
+        return;
+      }
+
+      // Fallback to synthesized sound for apps without audio files
+      const sound = fallbackSounds[app];
+      if (!sound) return;
+
+      sound.freq.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = sound.type;
+        osc.frequency.value = freq;
+
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime + delay + sound.pattern[i]);
+        gain.gain.exponentialDecayToValueAtTime?.(0.01, audioCtx.currentTime + delay + sound.pattern[i] + sound.duration)
+          || gain.gain.setTargetAtTime(0.01, audioCtx.currentTime + delay + sound.pattern[i], sound.duration / 3);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(audioCtx.currentTime + delay + sound.pattern[i]);
+        osc.stop(audioCtx.currentTime + delay + sound.pattern[i] + sound.duration + 0.1);
+      });
+    }
+
+    function calculateScheduledTimes(count) {
+      // First 3 seconds is the wait period, then notifications start
+      const times = [];
+      let cumulativeTime = 3; // Start after 3 second wait
+
+      for (let i = 0; i < count; i++) {
+        times.push(cumulativeTime);
+        // Add random spacing between 0.5 and 2.5 seconds for next notification
+        if (i < count - 1) {
+          cumulativeTime += 0.5 + Math.random() * 2;
+        }
+      }
+
+      return times;
+    }
+
+    function showQueueTimeline(app, count) {
+      // Calculate when each notification will play (for preview during queue)
+      const scheduledTimes = calculateScheduledTimes(count);
+      const totalDuration = scheduledTimes[scheduledTimes.length - 1] + 0.5;
+
+      // Store the scheduled times for later use
+      timelineState = {
+        active: true,
+        isQueuing: true,
+        app: app,
+        count: count,
+        scheduledTimes: scheduledTimes,
+        totalDuration: totalDuration,
+        startTime: Date.now(),
+        animationFrame: null,
+        markers: [],
+        soundTimeouts: []
+      };
+
+      // Update label
+      const appName = app.charAt(0).toUpperCase() + app.slice(1);
+      timelineLabelEl.textContent = `${appName}: ${count} queued ~ waiting 3s`;
+
+      // Update duration label
+      timelineDurationEl.textContent = `${totalDuration.toFixed(1)}s`;
+
+      // Clear existing markers
+      const existingMarkers = timelineTrackEl.querySelectorAll('.timeline-marker');
+      existingMarkers.forEach(m => m.remove());
+
+      // Create markers for each scheduled notification
+      scheduledTimes.forEach((time, index) => {
+        const marker = document.createElement('div');
+        marker.className = 'timeline-marker';
+        marker.style.left = `${(time / totalDuration) * 100}%`;
+        marker.dataset.index = index;
+        timelineTrackEl.appendChild(marker);
+        timelineState.markers.push(marker);
+      });
+
+      // Set wait zone width (3 seconds out of total duration)
+      const waitZonePercent = (3 / totalDuration) * 100;
+      timelineWaitZoneEl.style.width = `${waitZonePercent}%`;
+
+      // Show timeline
+      timelineEl.classList.add('visible');
+      statusEl.classList.add('has-timeline');
+
+      // Reset progress using transforms
+      timelineProgressEl.style.transform = 'scaleX(0)';
+      timelinePlayheadEl.style.transform = 'translateX(0)';
+
+      // Start animation loop
+      updateTimeline();
+    }
+
+    function startPlayback() {
+      if (!timelineState.active) return;
+
+      const app = timelineState.app;
+      const appName = app.charAt(0).toUpperCase() + app.slice(1);
+      timelineState.isQueuing = false;
+
+      // Clear any existing sound timeouts
+      timelineState.soundTimeouts.forEach(t => clearTimeout(t));
+      timelineState.soundTimeouts = [];
+
+      // Schedule the actual sounds (times are from start, so subtract 3s since we're past the wait)
+      timelineState.scheduledTimes.forEach((time, index) => {
+        const delayMs = (time - 3) * 1000; // Subtract wait time since it's already elapsed
+        const timeout = setTimeout(() => {
+          if (timelineState.active && timelineState.app === app) {
+            playSingleSound(app);
+            // Mark this notification as played
+            if (timelineState.markers[index]) {
+              timelineState.markers[index].classList.add('played');
+            }
+          }
+        }, Math.max(0, delayMs));
+        timelineState.soundTimeouts.push(timeout);
+      });
+
+      // Schedule cleanup
+      const remainingTime = (timelineState.totalDuration - 3) * 1000 + 500;
+      setTimeout(() => {
+        if (timelineState.active && timelineState.app === app) {
+          hideTimeline();
+          statusTextEl.textContent = `${appName}: done! ~`;
+          statusEl.classList.add('playing');
+          setTimeout(() => statusEl.classList.remove('playing'), 1000);
+        }
+      }, remainingTime);
+    }
+
+    function updateTimeline() {
+      if (!timelineState.active) return;
+
+      const elapsed = (Date.now() - timelineState.startTime) / 1000;
+      const progress = Math.min(elapsed / timelineState.totalDuration, 1);
+
+      // Use transforms for GPU-accelerated animation (no layout thrashing)
+      const trackWidth = timelineTrackEl.offsetWidth;
+      timelineProgressEl.style.transform = `scaleX(${progress})`;
+      timelinePlayheadEl.style.transform = `translateX(${progress * trackWidth}px)`;
+
+      // Throttle label updates to ~10fps (every 100ms) instead of 60fps
+      const now = Date.now();
+      if (!timelineState.lastLabelUpdate || now - timelineState.lastLabelUpdate > 100) {
+        timelineState.lastLabelUpdate = now;
+        const appName = timelineState.app.charAt(0).toUpperCase() + timelineState.app.slice(1);
+
+        if (elapsed < 3) {
+          timelineLabelEl.textContent = `${appName}: waiting... ${(3 - elapsed).toFixed(1)}s`;
+        } else {
+          // Cache played count to avoid filter on every frame
+          const played = timelineState.scheduledTimes.filter(t => elapsed >= t).length;
+          const total = timelineState.scheduledTimes.length;
+          if (played < total) {
+            timelineLabelEl.textContent = `${appName}: ${played}/${total} played`;
+          } else {
+            timelineLabelEl.textContent = `${appName}: all done!`;
+          }
+        }
+      }
+
+      if (progress < 1) {
+        timelineState.animationFrame = requestAnimationFrame(updateTimeline);
+      }
+    }
+
+    function hideTimeline() {
+      if (timelineState.soundTimeouts) {
+        timelineState.soundTimeouts.forEach(t => clearTimeout(t));
+      }
+      timelineState.active = false;
+      if (timelineState.animationFrame) {
+        cancelAnimationFrame(timelineState.animationFrame);
+      }
+      timelineEl.classList.remove('visible');
+      statusEl.classList.remove('has-timeline');
+    }
+
+    function updateQueueTimeline(app, count) {
+      // Recalculate times with new count
+      const scheduledTimes = calculateScheduledTimes(count);
+      const totalDuration = scheduledTimes[scheduledTimes.length - 1] + 0.5;
+
+      // Reset the start time since the 3-second wait restarts
+      timelineState.startTime = Date.now();
+      timelineState.scheduledTimes = scheduledTimes;
+      timelineState.totalDuration = totalDuration;
+      timelineState.count = count;
+
+      // Update label
+      const appName = app.charAt(0).toUpperCase() + app.slice(1);
+      timelineLabelEl.textContent = `${appName}: ${count} queued ~ waiting 3s`;
+
+      // Update duration label
+      timelineDurationEl.textContent = `${totalDuration.toFixed(1)}s`;
+
+      // Update wait zone width
+      const waitZonePercent = (3 / totalDuration) * 100;
+      timelineWaitZoneEl.style.width = `${waitZonePercent}%`;
+
+      // Reset progress using transforms
+      timelineProgressEl.style.transform = 'scaleX(0)';
+      timelinePlayheadEl.style.transform = 'translateX(0)';
+
+      // Clear and recreate markers
+      const existingMarkers = timelineTrackEl.querySelectorAll('.timeline-marker');
+      existingMarkers.forEach(m => m.remove());
+      timelineState.markers = [];
+
+      scheduledTimes.forEach((time, index) => {
+        const marker = document.createElement('div');
+        marker.className = 'timeline-marker';
+        marker.style.left = `${(time / totalDuration) * 100}%`;
+        marker.dataset.index = index;
+        timelineTrackEl.appendChild(marker);
+        timelineState.markers.push(marker);
+      });
+    }
+
+    // State for each app
+    const appStates = {};
+    const buttons = document.querySelectorAll('.app-btn');
+    const statusEl = document.getElementById('status');
+
+    buttons.forEach(btn => {
+      const app = btn.dataset.app;
+      appStates[app] = {
+        count: 0,
+        timer: null,
+        timerInterval: null,
+        holdTimer: null,
+        startTime: null,
+        wasHold: false
+      };
+
+      const badge = btn.querySelector('.notification-badge');
+      const timerBar = btn.querySelector('.timer-bar');
+
+      function updateBadge() {
+        const state = appStates[app];
+        badge.textContent = state.count;
+        badge.classList.toggle('visible', state.count > 0);
+      }
+
+      function resetState() {
+        const state = appStates[app];
+        clearTimeout(state.timer);
+        cancelAnimationFrame(state.timerInterval);
+        state.count = 0;
+        state.timer = null;
+        state.startTime = null;
+        timerBar.style.transform = 'scaleX(0)';
+        btn.classList.remove('loading');
+        updateBadge();
+        hideTimeline();
+        statusTextEl.textContent = 'reset! tap to start again ~';
+      }
+
+      function startTimer() {
+        const state = appStates[app];
+        state.startTime = Date.now();
+        btn.classList.add('loading');
+
+        // Show the queue timeline immediately
+        if (!timelineState.active || timelineState.app !== app) {
+          showQueueTimeline(app, state.count);
+        } else {
+          // Update existing timeline with new count
+          updateQueueTimeline(app, state.count);
+        }
+
+        // Update timer bar on button using RAF for smooth GPU-accelerated animation
+        cancelAnimationFrame(state.timerInterval);
+        function updateTimerBar() {
+          if (!state.startTime) return;
+          const elapsed = Date.now() - state.startTime;
+          const progress = Math.min(elapsed / 3000, 0.99);
+          timerBar.style.transform = `scaleX(${progress})`;
+          if (progress < 0.99) {
+            state.timerInterval = requestAnimationFrame(updateTimerBar);
+          }
+        }
+        state.timerInterval = requestAnimationFrame(updateTimerBar);
+
+        // Clear existing timer
+        clearTimeout(state.timer);
+
+        // Set new timer - this triggers when the 3s wait is over
+        state.timer = setTimeout(() => {
+          // Complete the progress bar on button
+          timerBar.style.transform = 'scaleX(1)';
+
+          // Start the actual sound playback
+          startPlayback();
+
+          // Reset button state
+          state.count = 0;
+          state.timer = null;
+          state.startTime = null;
+          cancelAnimationFrame(state.timerInterval);
+          timerBar.style.transform = 'scaleX(0)';
+          btn.classList.remove('loading');
+          updateBadge();
+        }, 3000);
+      }
+
+      // Mouse events
+      btn.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        audioCtx.resume(); // Resume audio context on user interaction
+
+        const state = appStates[app];
+        state.wasHold = false;
+
+        // Start hold detection
+        state.holdTimer = setTimeout(() => {
+          state.wasHold = true;
+          resetState();
+        }, 500);
+      });
+
+      btn.addEventListener('mouseup', () => {
+        const state = appStates[app];
+        clearTimeout(state.holdTimer);
+        // If hold timer didn't complete, clear the flag
+        if (!state.wasHold) {
+          state.wasHold = false;
+        }
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        const state = appStates[app];
+        clearTimeout(state.holdTimer);
+      });
+
+      btn.addEventListener('click', () => {
+        const state = appStates[app];
+
+        // If this click came after a hold action, ignore it
+        if (state.wasHold) {
+          state.wasHold = false;
+          return;
+        }
+
+        // Check if we should reset (> 5 notifications)
+        if (state.count >= 5) {
+          resetState();
+          return;
+        }
+
+        // Clear all other apps' queues when clicking this app
+        buttons.forEach(otherBtn => {
+          const otherApp = otherBtn.dataset.app;
+          if (otherApp !== app && appStates[otherApp].timer) {
+            // Reset the other app
+            const otherState = appStates[otherApp];
+            clearTimeout(otherState.timer);
+            clearInterval(otherState.timerInterval);
+            otherState.count = 0;
+            otherState.timer = null;
+            otherState.startTime = null;
+            otherBtn.querySelector('.timer-bar').style.width = '0%';
+            otherBtn.classList.remove('loading');
+            otherBtn.querySelector('.notification-badge').textContent = '0';
+            otherBtn.querySelector('.notification-badge').classList.remove('visible');
+          }
+        });
+
+        // Also hide any active timeline from other apps
+        if (timelineState.active && timelineState.app !== app) {
+          hideTimeline();
+        }
+
+        state.count++;
+        updateBadge();
+        startTimer();
+
+        statusTextEl.textContent = `${app.charAt(0).toUpperCase() + app.slice(1)}: ${state.count} queued... 3s`;
+      });
+
+      // Touch events for mobile
+      btn.addEventListener('touchstart', (e) => {
+        audioCtx.resume();
+        const state = appStates[app];
+        state.wasHold = false;
+        state.holdTimer = setTimeout(() => {
+          state.wasHold = true;
+          resetState();
+        }, 500);
+      });
+
+      btn.addEventListener('touchend', () => {
+        const state = appStates[app];
+        clearTimeout(state.holdTimer);
+        // If hold timer didn't complete, clear the flag
+        if (!state.wasHold) {
+          state.wasHold = false;
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
