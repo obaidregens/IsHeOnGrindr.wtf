@@ -1090,23 +1090,55 @@
   </footer>
 
   <script>
-    // Audio context for generating fallback sounds
+    // Audio context for Web Audio API
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Preload actual audio files
-    const audioFiles = {
-      whatsapp: new Audio('audio/whatsapp.mp3'),
-      grindr: new Audio('audio/grindr.mp3'),
-      tinder: new Audio('audio/tindermessage.mp3'),
-      instagram: new Audio('audio/instagram.mp3'),
-      snapchat: new Audio('audio/snapchat.mp3'),
-      bereal: new Audio('audio/bereal.mp3')
+    // Store decoded audio buffers (loaded at page load)
+    const audioBuffers = {};
+    const audioLoadingStatus = {};
+
+    // Audio file URLs to load
+    const audioUrls = {
+      whatsapp: 'audio/whatsapp.mp3',
+      grindr: 'audio/grindr.mp3',
+      tinder: 'audio/tindermessage.mp3',
+      instagram: 'audio/instagram.mp3',
+      snapchat: 'audio/snapchat.mp3',
+      bereal: 'audio/bereal.mp3'
     };
 
-    // Preload all audio files
-    Object.values(audioFiles).forEach(audio => {
-      audio.preload = 'auto';
-      audio.load();
+    // Load and decode audio buffers immediately
+    async function loadAudioBuffer(app, url) {
+      try {
+        audioLoadingStatus[app] = 'loading';
+        console.log(`Loading ${app}...`);
+
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        audioBuffers[app] = await audioCtx.decodeAudioData(arrayBuffer);
+
+        audioLoadingStatus[app] = 'ready';
+        console.log(`✓ ${app} ready (${(audioBuffers[app].duration).toFixed(1)}s)`);
+      } catch (error) {
+        console.error(`Failed to load ${app}:`, error);
+        audioLoadingStatus[app] = 'failed';
+      }
+    }
+
+    // Preload all audio files immediately
+    const loadingPromises = Object.entries(audioUrls).map(([app, url]) =>
+      loadAudioBuffer(app, url)
+    );
+
+    // Log when all audio is ready
+    Promise.all(loadingPromises).then(() => {
+      const readyCount = Object.values(audioLoadingStatus).filter(s => s === 'ready').length;
+      const totalCount = Object.keys(audioUrls).length;
+      console.log(`🎵 Audio ready: ${readyCount}/${totalCount} sounds loaded`);
+
+      if (readyCount === totalCount) {
+        console.log('✅ All sounds ready for instant playback!');
+      }
     });
 
     // Fallback synthesized sounds for apps without audio files
@@ -1136,13 +1168,38 @@
       markers: []
     };
 
-    function playSingleSound(app, delay = 0) {
-      // Use actual audio file if available
-      if (audioFiles[app]) {
-        setTimeout(() => {
-          const audio = audioFiles[app].cloneNode();
-          audio.play().catch(() => {});
-        }, delay * 1000);
+    async function playSingleSound(app, delay = 0) {
+      // Ensure AudioContext is running (critical for mobile)
+      if (audioCtx.state === 'suspended') {
+        try {
+          await audioCtx.resume();
+          console.log('AudioContext resumed');
+        } catch (e) {
+          console.error('Failed to resume AudioContext:', e);
+        }
+      }
+
+      // Use pre-decoded audio buffer if available
+      if (audioBuffers[app]) {
+        try {
+          const source = audioCtx.createBufferSource();
+          source.buffer = audioBuffers[app];
+
+          // Create gain node for volume control
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.value = 1.0;
+
+          source.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+
+          // Schedule precise playback using Web Audio API timing
+          const playTime = audioCtx.currentTime + delay;
+          source.start(playTime);
+
+          console.log(`Playing ${app} at ${playTime.toFixed(2)}s (delay: ${delay}s)`);
+        } catch (error) {
+          console.error(`Failed to play ${app}:`, error);
+        }
         return;
       }
 
@@ -1252,18 +1309,30 @@
       timelineState.soundTimeouts.forEach(t => clearTimeout(t));
       timelineState.soundTimeouts = [];
 
-      // Schedule the actual sounds (times are from start, so subtract 3s since we're past the wait)
+      // Schedule ALL sounds immediately using Web Audio API's precise timing
+      // This avoids setTimeout delays for audio playback
+      const baseTime = audioCtx.currentTime;
       timelineState.scheduledTimes.forEach((time, index) => {
-        const delayMs = (time - 3) * 1000; // Subtract wait time since it's already elapsed
+        const delayFromNow = time - 3; // Subtract wait time since it's already elapsed
+
+        // Schedule audio with Web Audio API (precise, not affected by setTimeout throttling)
+        if (delayFromNow >= 0) {
+          playSingleSound(app, delayFromNow);
+        } else {
+          // If somehow we're past the scheduled time, play immediately
+          playSingleSound(app, 0);
+        }
+
+        // Use setTimeout only for visual updates (markers), not audio
+        const delayMs = Math.max(0, delayFromNow * 1000);
         const timeout = setTimeout(() => {
           if (timelineState.active && timelineState.app === app) {
-            playSingleSound(app);
-            // Mark this notification as played
+            // Mark this notification as played (visual only)
             if (timelineState.markers[index]) {
               timelineState.markers[index].classList.add('played');
             }
           }
-        }, Math.max(0, delayMs));
+        }, delayMs);
         timelineState.soundTimeouts.push(timeout);
       });
 
@@ -1456,9 +1525,13 @@
       }
 
       // Mouse events
-      btn.addEventListener('mousedown', (e) => {
+      btn.addEventListener('mousedown', async (e) => {
         e.preventDefault();
-        audioCtx.resume(); // Resume audio context on user interaction
+
+        // Resume audio context on user interaction (critical for mobile)
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume().catch(err => console.error('Resume failed:', err));
+        }
 
         const state = appStates[app];
         state.wasHold = false;
@@ -1530,8 +1603,12 @@
       });
 
       // Touch events for mobile
-      btn.addEventListener('touchstart', (e) => {
-        audioCtx.resume();
+      btn.addEventListener('touchstart', async (e) => {
+        // Resume audio context on user interaction (critical for mobile)
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume().catch(err => console.error('Resume failed:', err));
+        }
+
         const state = appStates[app];
         state.wasHold = false;
         state.holdTimer = setTimeout(() => {
