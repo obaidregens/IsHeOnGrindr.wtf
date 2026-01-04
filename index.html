@@ -2131,10 +2131,11 @@
         clearTimeout(state.holdTimer);
       });
 
-      btn.addEventListener('click', () => {
+      // Shared tap/click handling logic
+      const handleTap = () => {
         const state = appStates[app];
 
-        // If this click came after a hold action, ignore it
+        // If this came after a hold action, ignore it
         if (state.wasHold) {
           state.wasHold = false;
           return;
@@ -2174,10 +2175,15 @@
         startTimer();
 
         statusTextEl.textContent = `${app.charAt(0).toUpperCase() + app.slice(1)}: ${state.count} queued... 3s`;
-      });
+      };
+
+      // Desktop: use click event
+      btn.addEventListener('click', handleTap);
 
       // Touch events for mobile
       btn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent mouse events from firing after touch
+
         // Resume audio context SYNCHRONOUSLY (critical for iOS)
         if (audioCtx.state === 'suspended') {
           audioCtx.resume();
@@ -2209,13 +2215,19 @@
         }, 500);
       });
 
-      btn.addEventListener('touchend', () => {
+      btn.addEventListener('touchend', (e) => {
         const state = appStates[app];
         clearTimeout(state.holdTimer);
-        // If hold timer didn't complete, clear the flag
-        if (!state.wasHold) {
+
+        // If it was a hold, don't trigger tap
+        if (state.wasHold) {
           state.wasHold = false;
+          return;
         }
+
+        // It was a tap (not a hold), so handle it
+        // preventDefault blocks the click event, so we call handleTap directly
+        handleTap();
       });
     });
 
