@@ -413,23 +413,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background:
-        linear-gradient(135deg, rgba(255, 240, 245, 0.7) 0%, rgba(255, 235, 205, 0.7) 100%),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(200, 200, 200, 0.03) 2px,
-          rgba(200, 200, 200, 0.03) 4px
-        ),
-        #FFFEF9;
+      background: var(--bg-cream);
       border: 3px solid var(--ink);
       border-radius: var(--border-wobbly-3);
       box-shadow:
         3px 4px 0 rgba(61, 61, 61, 0.2),
         6px 8px 0 rgba(61, 61, 61, 0.1),
         8px 10px 20px rgba(0,0,0,0.08),
-        inset 0 0 80px rgba(255, 200, 220, 0.15);
+        inset 0 0 60px rgba(255, 200, 220, 0.08);
       position: relative;
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -1257,7 +1248,7 @@
           2px 3px 0 rgba(61, 61, 61, 0.2),
           4px 6px 0 rgba(61, 61, 61, 0.1),
           6px 8px 15px rgba(0,0,0,0.08),
-          inset 0 0 60px rgba(255, 200, 220, 0.15);
+          inset 0 0 60px rgba(255, 200, 220, 0.08);
       }
 
       .carousel-follow-card:hover {
@@ -1365,6 +1356,12 @@
         left: 30px;
       }
 
+      /* Hide subtitle decorative icons on mobile to prevent clashing with margin line */
+      .subtitle:first-of-type::before,
+      .subtitle:last-of-type::before {
+        display: none;
+      }
+
       .notebook-label {
         font-size: 11px;
         top: 12px;
@@ -1453,8 +1450,9 @@
 
       <h1><img src="logo.png" alt="IsHeOnGrindr.wtf" class="logo-img"></h1>
 
-      <p class="subtitle">prank your friends</p>
-      <p class="subtitle" style="font-size: 13px; margin-top: -2px; opacity: 0.7;">(or test your bf)</p>
+      <p class="subtitle" style="font-size: 18px; font-weight: 600; margin-bottom: 8px; text-align: left;">accuse your friend of cheating or being gay.</p>
+      <p class="subtitle" style="font-size: 15px; margin-top: -4px; margin-bottom: 8px; opacity: 0.85; text-align: left;">fake notification for grindr, tinder, Snapchat and see their reaction</p>
+      <p class="subtitle" style="font-size: 12px; margin-top: -2px; opacity: 0.6; font-style: italic; text-align: left;">it's a fun app don't brigade us pls</p>
 
       <!-- Small corner doodles -->
       <svg style="position: absolute; bottom: 12px; right: 16px; width: 28px; height: 28px; opacity: 0.2;" viewBox="0 0 50 50">
