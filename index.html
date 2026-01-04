@@ -248,6 +248,399 @@
       transform: rotate(2deg);
     }
 
+    /* Carousel Section */
+    .carousel-section {
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .carousel-label {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 16px;
+      transform: rotate(-0.5deg);
+    }
+
+    /* Small doodle arrow next to label */
+    .carousel-label::before {
+      content: '↓';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-60px) rotate(-15deg);
+      opacity: 0.3;
+      font-size: 28px;
+      color: var(--coral);
+    }
+
+    .carousel-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 30px 16px;
+      background: var(--bg-card);
+      border-radius: 3px 5px 4px 6px;
+      box-shadow:
+        2px 3px 0 rgba(107, 107, 107, 0.15),
+        4px 6px 12px rgba(0,0,0,0.08);
+      transform: rotate(0.6deg);
+      overflow: visible;
+    }
+
+    /* Tape effect on carousel */
+    .carousel-container::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 30%;
+      width: 70px;
+      height: 22px;
+      background: rgba(255, 248, 220, 0.8);
+      border: 1px dashed rgba(180, 160, 100, 0.4);
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+      transform: rotate(-3deg);
+    }
+
+    /* Sketchy border */
+    .carousel-container::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border: 2px dashed var(--pencil-light);
+      border-radius: 4px 6px 5px 7px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .carousel-track {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: visible;
+      border-radius: 4px 6px 5px 7px;
+      position: relative;
+      background: transparent;
+      height: 450px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+      padding: 10px;
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+
+    /* Hide scrollbar for Chrome/Safari */
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-slide {
+      /* YouTube Shorts aspect ratio: 9:16 */
+      flex: 0 0 225px; /* Fixed width */
+      height: 400px; /* Fixed height for 9:16 ratio (225 * 16/9 = 400) */
+      aspect-ratio: 9/16;
+      border-radius: 3px 5px 4px 6px;
+      box-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid var(--pencil-light);
+    }
+
+    .carousel-slide:hover {
+      transform: scale(1.02) rotate(-0.5deg);
+      box-shadow: 3px 5px 10px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+
+    /* Placeholder for empty carousel */
+    .carousel-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-manila);
+      border: 3px dashed var(--pencil-light);
+      flex: 1;
+    }
+
+    .placeholder-content {
+      text-align: center;
+      font-family: 'Kalam', cursive;
+      color: var(--pencil);
+      opacity: 0.6;
+    }
+
+    .placeholder-content svg {
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+
+    .placeholder-content p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* Instagram Follow Card - Paper & Hand-Drawn Style */
+    .carousel-follow-card {
+      flex: 0 0 225px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(135deg, rgba(255, 240, 245, 0.7) 0%, rgba(255, 235, 205, 0.7) 100%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(200, 200, 200, 0.03) 2px,
+          rgba(200, 200, 200, 0.03) 4px
+        ),
+        #FFFEF9;
+      border: 3px solid var(--ink);
+      border-radius: 15px 12px 18px 14px;
+      box-shadow:
+        3px 4px 0 rgba(61, 61, 61, 0.2),
+        6px 8px 0 rgba(61, 61, 61, 0.1),
+        8px 10px 20px rgba(0,0,0,0.08),
+        inset 0 0 80px rgba(255, 200, 220, 0.15);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      text-decoration: none;
+      padding: 20px;
+      text-align: center;
+      transform: rotate(-1.5deg);
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.05));
+    }
+
+    .carousel-follow-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(0,0,0,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 40% 80%, rgba(0,0,0,0.015) 1px, transparent 1px);
+      background-size: 50px 50px, 60px 60px, 45px 45px;
+      pointer-events: none;
+      border-radius: 15px 12px 18px 14px;
+      opacity: 0.6;
+    }
+
+    .carousel-follow-card:hover {
+      transform: scale(1.08) rotate(0.5deg) translateY(-3px);
+      box-shadow:
+        5px 6px 0 rgba(61, 61, 61, 0.25),
+        10px 12px 0 rgba(61, 61, 61, 0.12),
+        12px 15px 25px rgba(0,0,0,0.12),
+        inset 0 0 80px rgba(255, 200, 220, 0.25);
+    }
+
+    /* Sketchy corner doodle */
+    .carousel-follow-card::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 40px;
+      height: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5 Q8 2, 12 5 T20 5 M35 5 Q32 8, 35 12 T35 20 M35 35 Q32 38, 28 35 T20 35 M5 35 Q8 32, 5 28 T5 20' stroke='%23C44E77' stroke-width='1.8' fill='none' stroke-linecap='round' opacity='0.4'/%3E%3Cpath d='M10 10 L15 8 L13 13 M30 10 L28 15 L33 13' stroke='%23C44E77' stroke-width='1.5' fill='none' stroke-linecap='round' opacity='0.35'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .follow-card-icon {
+      font-size: 56px;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.15)) drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+      position: relative;
+      z-index: 2;
+      transform: rotate(-2deg);
+    }
+
+    .follow-card-text {
+      font-family: 'Caveat', cursive;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+      transform: rotate(1deg);
+    }
+
+    .follow-card-handle {
+      font-family: 'Kalam', cursive;
+      font-size: 19px;
+      color: var(--pencil);
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 8px 6px 9px 7px;
+      border: 2px solid var(--pencil-light);
+      box-shadow: 2px 2px 0 rgba(107, 107, 107, 0.15);
+      transform: rotate(-1deg);
+    }
+
+    /* Sketchy star doodles */
+    .follow-card-star {
+      position: absolute;
+      bottom: 20px;
+      left: 15px;
+      width: 28px;
+      height: 28px;
+      opacity: 0.4;
+      animation: wiggle 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-5deg) scale(1); }
+      50% { transform: rotate(5deg) scale(1.05); }
+    }
+
+    /* Navigation buttons */
+    .carousel-nav {
+      background: var(--bg-cream);
+      border: 2px solid var(--pencil);
+      width: 44px;
+      height: 44px;
+      border-radius: 50% 45% 48% 52%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow:
+        2px 3px 0 rgba(107, 107, 107, 0.15),
+        3px 5px 8px rgba(0,0,0,0.08);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .carousel-nav::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 2px dashed var(--pencil);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .carousel-nav:hover {
+      transform: scale(1.1) rotate(-5deg);
+      background: var(--bg-manila);
+      box-shadow:
+        3px 4px 0 rgba(107, 107, 107, 0.2),
+        4px 7px 12px rgba(0,0,0,0.12);
+    }
+
+    .carousel-nav:hover::before {
+      opacity: 0.4;
+    }
+
+    .carousel-nav:active {
+      transform: scale(0.95);
+      box-shadow:
+        1px 2px 0 rgba(107, 107, 107, 0.15),
+        2px 3px 5px rgba(0,0,0,0.08);
+    }
+
+    .carousel-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .carousel-nav:disabled:hover {
+      transform: none;
+      background: var(--bg-cream);
+    }
+
+    .carousel-nav-prev {
+      transform: rotate(-2deg);
+    }
+
+    .carousel-nav-next {
+      transform: rotate(2deg);
+    }
+
+    /* Carousel dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--pencil-light);
+      border-radius: 50% 45% 52% 48%;
+      border: 2px solid var(--pencil);
+      opacity: 0.3;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    /* Slight rotation variations for organic feel */
+    .carousel-dot:nth-child(odd) {
+      border-radius: 48% 52% 45% 55%;
+      transform: rotate(15deg);
+    }
+
+    .carousel-dot:nth-child(even) {
+      border-radius: 52% 48% 55% 45%;
+      transform: rotate(-10deg);
+    }
+
+    .carousel-dot:hover {
+      opacity: 0.6;
+      transform: scale(1.2) rotate(0deg);
+    }
+
+    .carousel-dot.active {
+      background: var(--coral);
+      opacity: 0.8;
+      transform: scale(1.3) rotate(0deg);
+      box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.2);
+    }
+
+    /* Sketch highlight on active dot */
+    .carousel-dot.active::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 3px;
+      height: 3px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+    }
+
     .instructions {
       background: #FFF59D;
       padding: 22px 26px;
@@ -806,6 +1199,92 @@
         padding: 16px;
       }
 
+      .carousel-label {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .carousel-label::before {
+        transform: translateX(-45px) rotate(-15deg);
+        font-size: 22px;
+      }
+
+      .carousel-container {
+        padding: 20px 10px;
+        gap: 8px;
+        overflow: visible;
+      }
+
+      .carousel-track {
+        height: 380px;
+        padding: 8px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        overflow-y: visible;
+      }
+
+      .carousel-slide {
+        flex: 0 0 180px; /* Smaller width for mobile, maintaining 9:16 ratio */
+        height: 320px; /* 180 * 16/9 = 320 */
+      }
+
+      .carousel-follow-card {
+        flex: 0 0 180px;
+        height: 320px;
+        padding: 16px;
+        box-shadow:
+          2px 3px 0 rgba(61, 61, 61, 0.2),
+          4px 6px 0 rgba(61, 61, 61, 0.1),
+          6px 8px 15px rgba(0,0,0,0.08),
+          inset 0 0 60px rgba(255, 200, 220, 0.15);
+      }
+
+      .carousel-follow-card:hover {
+        transform: scale(1.05) rotate(0deg) translateY(-2px);
+        box-shadow:
+          3px 4px 0 rgba(61, 61, 61, 0.25),
+          6px 8px 0 rgba(61, 61, 61, 0.12),
+          8px 10px 20px rgba(0,0,0,0.12),
+          inset 0 0 60px rgba(255, 200, 220, 0.25);
+      }
+
+      .follow-card-icon {
+        font-size: 42px;
+        margin-bottom: 14px;
+      }
+
+      .follow-card-text {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .follow-card-handle {
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+
+      .follow-card-star {
+        width: 22px;
+        height: 22px;
+        bottom: 15px;
+        left: 12px;
+      }
+
+      .carousel-nav {
+        width: 36px;
+        height: 36px;
+      }
+
+      .carousel-nav svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .carousel-dot {
+        width: 8px;
+        height: 8px;
+      }
+
       .apps-grid {
         grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
         gap: 14px;
@@ -966,6 +1445,83 @@
         <path d="M25 10 L25 25 L35 25" stroke="#E07A5F" stroke-width="2" fill="none" stroke-linecap="round"/>
       </svg>
     </header>
+
+    <!-- YouTube Shorts Carousel -->
+    <div class="carousel-section">
+      <div class="carousel-label">how people are using it ~</div>
+      <div class="carousel-container">
+        <button class="carousel-nav carousel-nav-prev" aria-label="Previous video">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path d="M15 18 L9 12 L15 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="carousel-track">
+          <!-- YouTube Shorts embeds go here -->
+          <!-- Example: <iframe class="carousel-slide" src="https://www.youtube.com/embed/SHORT_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+          <div class="carousel-slide carousel-placeholder">
+            <div class="placeholder-content">
+              <svg viewBox="0 0 50 50" width="40" height="40">
+                <path d="M20 15 L35 25 L20 35 Z" fill="var(--pencil-light)" stroke="var(--pencil)" stroke-width="2"/>
+              </svg>
+              <p>Paste YouTube Shorts links here</p>
+            </div>
+          </div>
+
+          <!-- Instagram Follow Card -->
+          <a href="https://instagram.com/isheongrindrdotwtf" target="_blank" rel="noopener" class="carousel-follow-card">
+            <!-- Paper tape effect at top -->
+            <svg style="position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 80px; height: 20px; opacity: 0.4; z-index: 3;" viewBox="0 0 80 20">
+              <rect x="0" y="0" width="80" height="20" fill="#F5E6D3" stroke="#D4C5B3" stroke-width="1" rx="2"/>
+              <line x1="10" y1="0" x2="10" y2="20" stroke="#E5D6C3" stroke-width="0.5"/>
+              <line x1="70" y1="0" x2="70" y2="20" stroke="#E5D6C3" stroke-width="0.5"/>
+            </svg>
+
+            <i class="fab fa-instagram follow-card-icon"></i>
+
+            <div class="follow-card-text">follow us on<br>instagram<br>for more!</div>
+
+            <!-- Scribbled underline -->
+            <svg style="position: relative; width: 140px; height: 8px; margin: -8px auto 8px; z-index: 1;" viewBox="0 0 140 8">
+              <path d="M5 4 Q 20 2, 40 5 T 80 4 Q 100 6, 120 3 L 135 4" fill="none" stroke="#C44E77" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+              <path d="M8 5 Q 25 3, 45 6 T 85 5 Q 105 7, 125 4 L 132 5" fill="none" stroke="#C44E77" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+            </svg>
+
+            <div class="follow-card-handle">@isheongrindrdotwtf</div>
+
+            <!-- Sketchy star doodles -->
+            <svg class="follow-card-star" viewBox="0 0 50 50">
+              <path d="M25 2 L28 20 L46 20 L32 30 L38 48 L25 38 L12 48 L18 30 L4 20 L22 20 Z" fill="none" stroke="#D4A84B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <!-- Heart doodle -->
+            <svg style="position: absolute; bottom: 20px; right: 15px; width: 26px; height: 26px; opacity: 0.35; z-index: 1;" viewBox="0 0 50 50">
+              <path d="M25 42 Q 12 32, 12 22 Q 12 12, 19 12 Q 25 12, 25 19 Q 25 12, 31 12 Q 38 12, 38 22 Q 38 32, 25 42" fill="none" stroke="#E07A5F" stroke-width="2" stroke-linecap="round"/>
+              <path d="M20 20 L22 18" stroke="#E07A5F" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+            </svg>
+
+            <!-- Sparkle doodle -->
+            <svg style="position: absolute; top: 60px; right: 25px; width: 20px; height: 20px; opacity: 0.3; z-index: 1;" viewBox="0 0 50 50">
+              <path d="M25 5 L25 45 M5 25 L45 25 M12 12 L38 38 M38 12 L12 38" stroke="#D4A84B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+
+            <!-- Arrow doodle pointing to handle -->
+            <svg style="position: absolute; bottom: 65px; left: 12px; width: 35px; height: 30px; opacity: 0.25; z-index: 1;" viewBox="0 0 35 30">
+              <path d="M5 5 Q 10 15, 15 20 L 12 18 M 15 20 L 13 15" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <button class="carousel-nav carousel-nav-next" aria-label="Next video">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path d="M9 6 L15 12 L9 18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Carousel dots indicator -->
+      <div class="carousel-dots"></div>
+    </div>
 
     <div class="instructions">
       <!-- Hand-drawn sketchy paper clip -->
@@ -1662,6 +2218,234 @@
         }
       });
     });
+
+    // ===== PASTE YOUR YOUTUBE SHORTS LINKS HERE =====
+    const youtubeLinks = [
+      "https://www.youtube.com/shorts/QzL-4tkCX9A",
+      "https://www.youtube.com/shorts/6P8Ur_GvUPE"
+    ];
+    // =================================================
+
+    // Carousel functionality
+    const carouselTrack = document.querySelector('.carousel-track');
+    const carouselPrevBtn = document.querySelector('.carousel-nav-prev');
+    const carouselNextBtn = document.querySelector('.carousel-nav-next');
+    const carouselDotsContainer = document.querySelector('.carousel-dots');
+
+    let currentSlide = 0;
+    let slides = [];
+
+    function extractVideoId(url) {
+      let videoId = null;
+
+      // Match shorts URL
+      const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
+      if (shortsMatch) return shortsMatch[1];
+
+      // Match regular watch URL
+      const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+      if (watchMatch) return watchMatch[1];
+
+      // Match youtu.be URL
+      const youtubeMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+      if (youtubeMatch) return youtubeMatch[1];
+
+      return null;
+    }
+
+    function loadYouTubeLinks() {
+      if (youtubeLinks.length === 0) return;
+
+      // Remove placeholder
+      const placeholder = carouselTrack.querySelector('.carousel-placeholder');
+      if (placeholder) {
+        placeholder.remove();
+      }
+
+      // Get the follow card (we want to insert videos before it)
+      const followCard = carouselTrack.querySelector('.carousel-follow-card');
+
+      // Add each video before the follow card
+      youtubeLinks.forEach(url => {
+        const videoId = extractVideoId(url);
+        if (!videoId) {
+          console.error('Invalid YouTube URL:', url);
+          return;
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.className = 'carousel-slide';
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.frameBorder = '0';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+
+        // Insert before follow card
+        if (followCard) {
+          carouselTrack.insertBefore(iframe, followCard);
+        } else {
+          carouselTrack.appendChild(iframe);
+        }
+      });
+
+      console.log(`Loaded ${youtubeLinks.length} YouTube videos`);
+    }
+
+    function initCarousel() {
+      // Get all carousel items (slides + follow card, but exclude placeholder)
+      const allItems = Array.from(carouselTrack.querySelectorAll('.carousel-slide:not(.carousel-placeholder)'));
+      slides = allItems;
+
+      if (slides.length === 0) {
+        // If no videos, check if we have the follow card
+        const followCard = carouselTrack.querySelector('.carousel-follow-card');
+        if (followCard) {
+          // Just show the follow card, no navigation needed
+          return;
+        }
+        return;
+      }
+
+      // Reset scroll position
+      carouselTrack.scrollLeft = 0;
+
+      // Create dots
+      updateDots();
+
+      // Update button states
+      updateNavButtons();
+    }
+
+    function updateDots() {
+      carouselDotsContainer.innerHTML = '';
+
+      if (slides.length <= 3) return;
+
+      // Calculate number of pages (groups of 3)
+      const numPages = Math.ceil(slides.length / 3);
+
+      for (let i = 0; i < numPages; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot';
+        if (i === currentSlide) {
+          dot.classList.add('active');
+        }
+        dot.addEventListener('click', () => goToSlide(i));
+        carouselDotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateNavButtons() {
+      if (slides.length <= 3) {
+        carouselPrevBtn.disabled = true;
+        carouselNextBtn.disabled = true;
+        return;
+      }
+
+      const numPages = Math.ceil(slides.length / 3);
+      carouselPrevBtn.disabled = currentSlide === 0;
+      carouselNextBtn.disabled = currentSlide >= numPages - 1;
+    }
+
+    function goToSlide(pageIndex) {
+      const numPages = Math.ceil(slides.length / 3);
+      if (pageIndex < 0 || pageIndex >= numPages) return;
+
+      // Update index
+      currentSlide = pageIndex;
+
+      // Calculate scroll position using fixed slide width
+      // Desktop: 225px per slide, 14px gap
+      // Mobile: 180px per slide, 14px gap (handled by CSS)
+      const slideWidth = slides[0] ? slides[0].offsetWidth : 225;
+      const gap = 14;
+      const scrollAmount = pageIndex * (slideWidth * 3 + gap * 2);
+
+      // Smooth scroll
+      carouselTrack.scrollTo({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+
+      // Update dots
+      const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+
+      // Update buttons
+      updateNavButtons();
+    }
+
+    function nextSlide() {
+      const numPages = Math.ceil(slides.length / 3);
+      if (currentSlide < numPages - 1) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    // Event listeners for navigation
+    carouselPrevBtn.addEventListener('click', prevSlide);
+    carouselNextBtn.addEventListener('click', nextSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (slides.length <= 1) return;
+
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+      }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carouselTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselTrack.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swiped left - go to next page
+          nextSlide();
+        } else {
+          // Swiped right - go to previous page
+          prevSlide();
+        }
+      }
+    }
+
+    // Auto-advance carousel (optional, disabled by default)
+    // Uncomment to enable auto-advance every 5 seconds
+    // setInterval(() => {
+    //   if (currentSlide < slides.length - 1) {
+    //     nextSlide();
+    //   } else {
+    //     goToSlide(0);
+    //   }
+    // }, 5000);
+
+    // Load YouTube links and initialize carousel when page loads
+    loadYouTubeLinks();
+    initCarousel();
 
   </script>
 </body>
