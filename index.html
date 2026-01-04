@@ -56,6 +56,20 @@
       --pencil-light: #8B8B8B;
       --ink: #2D3436;
       --text: #3D3D3D;
+
+      /* Shadow patterns */
+      --shadow-paper-light: 2px 3px 0 rgba(0,0,0,0.1), 4px 6px 12px rgba(0,0,0,0.08);
+      --shadow-paper-medium: 2px 3px 6px rgba(0,0,0,0.1);
+      --shadow-card-stacked: 3px 4px 0 rgba(61,61,61,0.2), 6px 8px 0 rgba(61,61,61,0.1), 8px 10px 20px rgba(0,0,0,0.08);
+      --shadow-pencil-sketch: 2px 3px 0 rgba(107,107,107,0.15), 4px 6px 12px rgba(0,0,0,0.08);
+
+      /* Wobbly border-radius patterns */
+      --border-wobbly-1: 2px 4px 2px 3px;
+      --border-wobbly-2: 3px 5px 4px 6px;
+      --border-wobbly-3: 15px 12px 18px 14px;
+      --border-wobbly-4: 12px 15px 13px 14px;
+      --border-wobbly-5: 14px 18px 16px 20px;
+      --border-wobbly-6: 8px 6px 9px 7px;
     }
 
     * {
@@ -120,6 +134,17 @@
       height: 0;
     }
 
+    /* Utility classes for hand-drawn aesthetic */
+    .rotate-slight-left { transform: rotate(-0.8deg); }
+    .rotate-slight-left-mild { transform: rotate(-0.5deg); }
+    .rotate-slight-right { transform: rotate(0.6deg); }
+    .rotate-slight-right-mild { transform: rotate(0.5deg); }
+    .rotate-tilt-left { transform: rotate(-1.5deg); }
+    .rotate-tilt-right { transform: rotate(1deg); }
+    .rotate-tilt-right-mild { transform: rotate(0.5deg); }
+    .rotate-nudge-left { transform: rotate(-2deg); }
+    .rotate-nudge-right { transform: rotate(2deg); }
+
     header {
       text-align: center;
       margin-bottom: 40px;
@@ -128,10 +153,8 @@
       background: #FFFFF0;
       position: relative;
       transform: rotate(-0.8deg);
-      border-radius: 2px 4px 2px 3px;
-      box-shadow:
-        2px 3px 0 rgba(0,0,0,0.1),
-        4px 6px 12px rgba(0,0,0,0.08);
+      border-radius: var(--border-wobbly-1);
+      box-shadow: var(--shadow-paper-light);
     }
 
     /* Torn top edge */
@@ -282,10 +305,8 @@
       gap: 12px;
       padding: 16wpx 16px;
       background: var(--bg-card);
-      border-radius: 3px 5px 4px 6px;
-      box-shadow:
-        2px 3px 0 rgba(107, 107, 107, 0.15),
-        4px 6px 12px rgba(0,0,0,0.08);
+      border-radius: var(--border-wobbly-2);
+      box-shadow: var(--shadow-pencil-sketch);
       transform: rotate(0.6deg);
       overflow: visible;
     }
@@ -345,8 +366,8 @@
       flex: 0 0 225px; /* Fixed width */
       height: 400px; /* Fixed height for 9:16 ratio (225 * 16/9 = 400) */
       aspect-ratio: 9/16;
-      border-radius: 3px 5px 4px 6px;
-      box-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+      border-radius: var(--border-wobbly-2);
+      box-shadow: var(--shadow-paper-medium);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       border: 2px solid var(--pencil-light);
     }
@@ -403,7 +424,7 @@
         ),
         #FFFEF9;
       border: 3px solid var(--ink);
-      border-radius: 15px 12px 18px 14px;
+      border-radius: var(--border-wobbly-3);
       box-shadow:
         3px 4px 0 rgba(61, 61, 61, 0.2),
         6px 8px 0 rgba(61, 61, 61, 0.1),
@@ -432,7 +453,7 @@
         radial-gradient(circle at 40% 80%, rgba(0,0,0,0.015) 1px, transparent 1px);
       background-size: 50px 50px, 60px 60px, 45px 45px;
       pointer-events: none;
-      border-radius: 15px 12px 18px 14px;
+      border-radius: var(--border-wobbly-3);
       opacity: 0.6;
     }
 
@@ -495,7 +516,7 @@
       z-index: 2;
       padding: 6px 12px;
       background: rgba(255, 255, 255, 0.5);
-      border-radius: 8px 6px 9px 7px;
+      border-radius: var(--border-wobbly-6);
       border: 2px solid var(--pencil-light);
       box-shadow: 2px 2px 0 rgba(107, 107, 107, 0.15);
       transform: rotate(-1deg);
@@ -1649,6 +1670,41 @@
     // Audio context for Web Audio API
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+    // Constants
+    const HOLD_DURATION = 3000; // Hold timer duration in ms
+    const MAX_NOTIFICATIONS = 5; // Maximum number of notifications
+    const CAROUSEL_SLIDE_WIDTH = 225; // Desktop carousel slide width in px
+    const CAROUSEL_SLIDE_WIDTH_MOBILE = 180; // Mobile carousel slide width in px
+    const CAROUSEL_GAP = 14; // Gap between carousel slides in px
+    const AUDIO_SAMPLE_RATE = 22050; // Audio buffer sample rate
+
+    // Helper function: Unlock audio for iOS
+    // iOS requires audio to start SYNCHRONOUSLY during user gesture
+    function unlockAudioForIOS() {
+      // Resume audio context SYNCHRONOUSLY (critical for iOS)
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+        console.log('AudioContext resumed');
+      }
+
+      // **CRITICAL FOR iOS**: Play silent sound to unlock audio
+      // iOS requires audio to start SYNCHRONOUSLY during user gesture
+      try {
+        // Create a very short silent buffer
+        const silentSource = audioCtx.createBufferSource();
+        const silentBuffer = audioCtx.createBuffer(1, 1, AUDIO_SAMPLE_RATE);
+        silentSource.buffer = silentBuffer;
+        silentSource.connect(audioCtx.destination);
+
+        // Start IMMEDIATELY (not scheduled) - this is critical for iOS
+        silentSource.start(0);
+
+        console.log('🔓 Audio unlocked (silent)');
+      } catch (error) {
+        console.error('❌ Failed to unlock audio:', error);
+      }
+    }
+
     // Store decoded audio buffers (loaded at page load)
     const audioBuffers = {};
     const audioLoadingStatus = {};
@@ -2050,7 +2106,7 @@
         function updateTimerBar() {
           if (!state.startTime) return;
           const elapsed = Date.now() - state.startTime;
-          const progress = Math.min(elapsed / 3000, 0.99);
+          const progress = Math.min(elapsed / HOLD_DURATION, 0.99);
           timerBar.style.transform = `scaleX(${progress})`;
           if (progress < 0.99) {
             state.timerInterval = requestAnimationFrame(updateTimerBar);
@@ -2077,35 +2133,14 @@
           timerBar.style.transform = 'scaleX(0)';
           btn.classList.remove('loading');
           updateBadge();
-        }, 3000);
+        }, HOLD_DURATION);
       }
 
       // Mouse events
       btn.addEventListener('mousedown', (e) => {
         e.preventDefault();
 
-        // Resume audio context SYNCHRONOUSLY (critical for iOS)
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-          console.log('AudioContext resumed');
-        }
-
-        // **CRITICAL FOR iOS**: Play silent sound to unlock audio
-        // iOS requires audio to start SYNCHRONOUSLY during user gesture
-        try {
-          // Create a very short silent buffer
-          const silentSource = audioCtx.createBufferSource();
-          const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
-          silentSource.buffer = silentBuffer;
-          silentSource.connect(audioCtx.destination);
-
-          // Start IMMEDIATELY (not scheduled) - this is critical for iOS
-          silentSource.start(0);
-
-          console.log('🔓 Audio unlocked (silent)');
-        } catch (error) {
-          console.error('❌ Failed to unlock audio:', error);
-        }
+        unlockAudioForIOS();
 
         const state = appStates[app];
         state.wasHold = false;
@@ -2141,8 +2176,8 @@
           return;
         }
 
-        // Check if we should reset (> 5 notifications)
-        if (state.count >= 5) {
+        // Check if we should reset (> MAX_NOTIFICATIONS)
+        if (state.count >= MAX_NOTIFICATIONS) {
           resetState();
           return;
         }
@@ -2184,28 +2219,7 @@
       btn.addEventListener('touchstart', (e) => {
         e.preventDefault(); // Prevent mouse events from firing after touch
 
-        // Resume audio context SYNCHRONOUSLY (critical for iOS)
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-          console.log('AudioContext resumed');
-        }
-
-        // **CRITICAL FOR iOS**: Play silent sound to unlock audio
-        // iOS requires audio to start SYNCHRONOUSLY during user gesture
-        try {
-          // Create a very short silent buffer
-          const silentSource = audioCtx.createBufferSource();
-          const silentBuffer = audioCtx.createBuffer(1, 1, 22050);
-          silentSource.buffer = silentBuffer;
-          silentSource.connect(audioCtx.destination);
-
-          // Start IMMEDIATELY (not scheduled) - this is critical for iOS
-          silentSource.start(0);
-
-          console.log('🔓 Audio unlocked (silent)');
-        } catch (error) {
-          console.error('❌ Failed to unlock audio:', error);
-        }
+        unlockAudioForIOS();
 
         const state = appStates[app];
         state.wasHold = false;
@@ -2368,10 +2382,9 @@
       currentSlide = pageIndex;
 
       // Calculate scroll position using fixed slide width
-      // Desktop: 225px per slide, 14px gap
-      // Mobile: 180px per slide, 14px gap (handled by CSS)
-      const slideWidth = slides[0] ? slides[0].offsetWidth : 225;
-      const gap = 14;
+      // Desktop/Mobile: slide widths and gaps defined by constants (handled by CSS)
+      const slideWidth = slides[0] ? slides[0].offsetWidth : CAROUSEL_SLIDE_WIDTH;
+      const gap = CAROUSEL_GAP;
       const scrollAmount = pageIndex * (slideWidth * 3 + gap * 2);
 
       // Smooth scroll
